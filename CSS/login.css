@@ -86,10 +86,7 @@ button {
   color: #008080;
   border: 1px solid #008080;
 }
-.button-container {
-  display: flex;
-  gap: 15px;
-}
+
 
 .footer {
   font-size: 12px;
