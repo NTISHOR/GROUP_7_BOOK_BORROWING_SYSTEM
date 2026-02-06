@@ -3,28 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>G7 BBS</title>
+    <title>BBS Login Page</title>
     <link rel="stylesheet" href="/login.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="logo">BBS</div>
-      <h1>Welcome Back!</h1>
-      <p class="subtitle">Please Log in to your account.</p>
-      <form>
-        <input type="email" placeholder="Email Address" />
-        <input type="password" placeholder="Password" />
-        <div class="options">
-          <label><input type="checkbox" /> Remember Me</label>
-          <a href="#">Forgot Password?</a>
-        </div>
-        <button class="login">Login</button>
-        <button class="create">Create Account</button>
-      </form>
-      <p class="footer">
-        By signing up you agree to our terms and that you have read our data
-        policy
-      </p>
-    </div>
+    <header>
+      <h1>BBS</h1>
+      <nav>
+        <a href="/index.html">Home</a>
+        <a>Features</a>
+        <a>Contact</a>
+      </nav>
+    </header>
+
+    <section class="login-section">
+      <div class="login-form">
+        <h2>Login</h2>
+        <form>
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+          />
+
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          />
+
+          <button type="submit">Login</button>
+        </form>
+        <a class="forgot-password">Forgot Password?</a>
+      </div>
+    </section>
+
+    <footer>&copy; 2026 Book Borrowing System. All rights reserved.</footer>
   </body>
 </html>
