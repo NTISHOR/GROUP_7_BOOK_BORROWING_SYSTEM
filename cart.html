@@ -1,91 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Cart | G7 BBS</title>
-  <style>
-    :root {
-      --primary-blue: #0056b3;
-      --bg-light: #f0f5ff;
-      --white: #ffffff;
-      --danger: #ff4757;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart | G7 BBS</title>
+    <style>
+      :root {
+        --primary-blue: #0056b3;
+        --bg-light: #f0f5ff;
+        --white: #ffffff;
+        --danger: #ff4757;
+      }
 
-    body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-light); margin: 0; padding: 20px; }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: var(--bg-light);
+        margin: 0;
+        padding: 20px;
+      }
 
-    .container { 
-      max-width: 1000px; margin: 0 auto; 
-      display: grid; grid-template-columns: 1fr; gap: 20px; 
-    }
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
 
-    /* Tablet/Desktop Layout */
-    @media (min-width: 768px) {
-      .container { grid-template-columns: 2fr 1fr; }
-    }
+      /* Tablet/Desktop Layout */
+      @media (min-width: 768px) {
+        .container {
+          grid-template-columns: 2fr 1fr;
+        }
+      }
 
-    .cart-items { background: var(--white); padding: 20px; border-radius: 15px; border: 1px solid #e1e8f0; }
+      .cart-items {
+        background: var(--white);
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #e1e8f0;
+      }
 
-    .cart-item { 
-      display: flex; align-items: center; gap: 15px; 
-      padding: 15px 0; border-bottom: 1px solid #eee; 
-    }
+      .cart-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+      }
 
-    .cart-item img { width: 60px; height: 80px; object-fit: cover; border-radius: 5px; }
+      .cart-item img {
+        width: 60px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
 
-    .item-details { flex-grow: 1; }
-    .item-details h4 { margin: 0; font-size: 1rem; color: var(--primary-blue); }
-    .item-details p { margin: 5px 0 0; font-size: 0.8rem; color: #666; }
+      .item-details {
+        flex-grow: 1;
+      }
+      .item-details h4 {
+        margin: 0;
+        font-size: 1rem;
+        color: var(--primary-blue);
+      }
+      .item-details p {
+        margin: 5px 0 0;
+        font-size: 0.8rem;
+        color: #666;
+      }
 
-    .remove-btn { 
-      background: none; border: 1px solid var(--danger); color: var(--danger);
-      padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;
-    }
-    .remove-btn:hover { background: var(--danger); color: white; }
+      .remove-btn {
+        background: none;
+        border: 1px solid var(--danger);
+        color: var(--danger);
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.8rem;
+      }
+      .remove-btn:hover {
+        background: var(--danger);
+        color: white;
+      }
 
-    /* Order Summary Sidebar */
-    .summary-card { 
-      background: var(--white); padding: 25px; border-radius: 15px; 
-      border: 1px solid #e1e8f0; height: fit-content;
-      box-shadow: 0 4px 15px rgba(0,86,179,0.05);
-    }
+      /* Order Summary Sidebar */
+      .summary-card {
+        background: var(--white);
+        padding: 25px;
+        border-radius: 15px;
+        border: 1px solid #e1e8f0;
+        height: fit-content;
+        box-shadow: 0 4px 15px rgba(0, 86, 179, 0.05);
+      }
 
-    .summary-card h3 { margin-top: 0; border-bottom: 2px solid var(--bg-light); padding-bottom: 10px; }
-    
-    .summary-row { display: flex; justify-content: space-between; margin: 15px 0; font-weight: 500; }
+      .summary-card h3 {
+        margin-top: 0;
+        border-bottom: 2px solid var(--bg-light);
+        padding-bottom: 10px;
+      }
 
-    .checkout-btn { 
-      background: var(--primary-blue); color: white; border: none; 
-      padding: 15px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1rem;
-    }
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0;
+        font-weight: 500;
+      }
 
-    .back-link { display: block; margin-top: 20px; text-align: center; color: var(--primary-blue); text-decoration: none; }
-  </style>
-</head>
-<body>
+      .checkout-btn {
+        background: var(--primary-blue);
+        color: white;
+        border: none;
+        padding: 15px;
+        width: 100%;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1rem;
+      }
 
-<div class="container">
-  <div class="cart-items" id="cartItemsContainer">
-    <h2>Borrowing List</h2>
-    <div id="itemList">
+      .back-link {
+        display: block;
+        margin-top: 20px;
+        text-align: center;
+        color: var(--primary-blue);
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="cart-items" id="cartItemsContainer">
+        <h2>Borrowing List</h2>
+        <div id="itemList"></div>
       </div>
-  </div>
 
-  <div class="summary-card">
-    <h3>Summary</h3>
-    <div class="summary-row">
-      <span>Total Books:</span>
-      <span id="totalCount">0</span>
+      <div class="summary-card">
+        <h3>Summary</h3>
+        <div class="summary-row">
+          <span>Total Books:</span>
+          <span id="totalCount">0</span>
+        </div>
+        <div class="summary-row" style="color: #2ed573">
+          <span>Due Date:</span>
+          <span>14 Days</span>
+        </div>
+        <button class="checkout-btn">Confirm Borrowing</button>
+        <a href="index.html" class="back-link">← Continue Browsing</a>
+      </div>
     </div>
-    <div class="summary-row" style="color: #2ed573;">
-      <span>Due Date:</span>
-      <span>14 Days</span>
-    </div>
-    <button class="checkout-btn">Confirm Borrowing</button>
-    <a href="index.html" class="back-link">← Continue Browsing</a>
-  </div>
-</div>
 
-<script src="cart.js"></script>
-</body>
+    <script src="cart.js"></script>
+  </body>
 </html>
