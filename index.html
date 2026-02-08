@@ -38,7 +38,7 @@
     .product-grid { 
       display: grid; gap: 25px; padding: 20px 5% 50px;
       grid-template-columns: 1fr;
-      flex: 1; /* Pushes footer to bottom */
+      flex: 1; 
     }
 
     @media (min-width: 600px) {
@@ -55,7 +55,7 @@
       background: white; border-radius: 15px; padding: 20px; 
       display: flex; flex-direction: column; justify-content: space-between; 
       text-align: center; border: 1px solid #e1e8f0; position: relative;
-      height: 500px; transition: transform 0.3s;
+      height: 520px; transition: transform 0.3s;
     }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
     
@@ -111,51 +111,16 @@
   </select>
 </section>
 
-<<<<<<< HEAD
-<section class="products">
-  <div class="product-grid" id="productGrid">
-
-
-  <div class="product-grid" id="productGrid">
-
-
-    <div class="product-card" data-title="Introduction to Algorithms" data-author="Thomas H. Cormen" data-category="Programming" data-status="available">
-      <span class="badge available">Available</span>
-      <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg" alt="Introduction to Algorithms">
-      <h3>Introduction to Algorithms</h3>
-      <p>Thomas H. Cormen</p>
-      <button>Borrow Book</button>
-    </div>
-
-    <div class="product-card" data-title="Clean Code" data-author="Robert C. Martin" data-category="Programming" data-status="borrowed">
-      <span class="badge borrowed">Borrowed</span>
-      <img src="https://covers.openlibrary.org/b/id/10523338-L.jpg" alt="Clean Code">
-      <h3>Clean Code</h3>
-      <p>Robert C. Martin</p>
-      <button disabled>Borrow Book</button>
-    </div>
-
-    <div class="product-card" data-title="Database Systems" data-author="Ramez Elmasri" data-category="Database" data-status="available">
-      <span class="badge available">Available</span>
-      <img src="https://covers.openlibrary.org/b/id/9874156-L.jpg" alt="Database Systems">
-      <h3>Database Systems</h3>
-      <p>Ramez Elmasri</p>
-      <button>Borrow Book</button>
-    </div>
-
-    <div class="product-card" data-title="Operating Systems" data-author="Abraham Silberschatz" data-category="Operating Systems" data-status="available">
-      <span class="badge available">Available</span>
-      <img src="https://covers.openlibrary.org/b/id/8231991-L.jpg" alt="Operating Systems">
-      <h3>Operating Systems</h3>
-      <p>Abraham Silberschatz</p>
-      <button>Borrow Book</button>
-    </div>
-
-=======
 <div class="product-grid" id="productGrid">
   <div class="product-card" data-title="Eloquent JavaScript" data-author="Marijn Haverbeke" data-category="Programming">
     <span class="badge available">Available</span>
     <img src="https://covers.openlibrary.org/b/id/10431252-L.jpg">
+    <h3>Eloquent JavaScript</h3><p>Marijn Haverbeke</p><button>Borrow Book</button>
+  </div>
+  <div class="product-card" data-title="Clean Code" data-author="Robert Martin" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10523338-L.jpg">
+    <h3>Clean Code</h3><p>Robert Martin</p><button>Borrow Book</button>
   </div>
   <div class="product-card" data-title="Python Crash Course" data-author="Eric Matthes" data-category="Programming">
     <span class="badge available">Available</span>
