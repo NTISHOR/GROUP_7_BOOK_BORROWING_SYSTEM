@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Borrowed Books | G7 BBS</title>
+    <link rel="stylesheet" href="CSS/index.css">
+    <style>
+        .cart-wrapper { display: flex; gap: 30px; padding: 40px; max-width: 1200px; margin: auto; }
+        .cart-items-container { flex: 2; }
+        
+        .book-card { 
+            display: flex; align-items: center; background: white; 
+            border: 1px solid #eee; border-radius: 12px; padding: 15px; margin-bottom: 15px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .book-card img { width: 80px; height: 110px; object-fit: cover; border-radius: 5px; margin-right: 20px; }
+        .book-info { flex-grow: 1; }
+        .remove-btn { background: none; border: none; color: #ff4757; cursor: pointer; font-size: 1.2rem; }
+
+        .order-summary-box { 
+            flex: 1; background: #fff; border: 1px solid #ddd; 
+            padding: 25px; border-radius: 15px; height: fit-content; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; color: #555; }
+        .summary-total { border-top: 1px solid #eee; padding-top: 15px; font-weight: bold; font-size: 1.2rem; color: #000; }
+        .checkout-button { 
+            width: 100%; padding: 15px; background: #000; color: #fff; 
+            border: none; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+  <h1>📚 G7 BBS</h1>
+  <nav><a href="index.html">Back to Library</a></nav>
+</header>
+
+<div class="cart-wrapper">
+    <div class="cart-items-container" id="cart-list">
+        </div>
+
+    <div class="order-summary-box">
+        <h3>Order Summary</h3>
+        <div class="summary-row"><span>Books Selected</span> <span id="subtotal-count">0</span></div>
+        <div class="summary-row"><span>Borrowing Period</span> <span>14 Days</span></div>
+        <div class="summary-row"><span>Delivery Fee</span> <span style="color: green;">FREE</span></div>
+        <div class="summary-total">
+            <div class="summary-row"><span>Total Items</span> <span id="total-items-final">0</span></div>
+        </div>
+        <button class="checkout-button">Confirm Borrowing →</button>
+    </div>
+</div>
+
+<script src="cart.js"></script>
+</body>
+</html>

@@ -5,13 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>G7 Book Borrowing System | Books</title>
   <link rel="stylesheet" href="CSS/index.css">
+  <style>
+    /* Cart Badge Styling */
+    .cart-link { 
+      position: relative; 
+      display: inline-flex; 
+      align-items: center; 
+      text-decoration: none; 
+      color: inherit; 
+    }
+    .cart-container { 
+      position: relative; 
+      margin-right: 8px; 
+      font-size: 1.2rem; 
+    }
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background-color: #ff4757; /* Notification Red */
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      display: none; /* Hidden until a book is added */
+    }
+  </style>
 </head>
 <body>
 
-<!-- Header -->
 <header>
   <h1>📚 G7 BBS</h1>
   <nav>
+    <a href="cart.html" class="cart-link">
+      <div class="cart-container">
+        <span id="cart-icon">🛒</span>
+        <span id="cart-count">0</span>
+      </div>
+      Cart
+    </a>
     <a href="index.html">Home</a>
     <a href="books.html">Books</a>
     <a href="login.html">Login</a>
@@ -19,7 +52,6 @@
   </nav>
 </header>
 
-<!-- Hero Section -->
 <section class="hero">
   <div class="hero-text">
     <h2>G7 Book Borrowing System</h2>
@@ -27,7 +59,6 @@
   </div>
 </section>
 
-<!-- Search & Filter -->
 <section class="search-filter">
   <input type="text" id="search" placeholder="Search by book title or author...">
   <select id="category">
@@ -38,11 +69,9 @@
   </select>
 </section>
 
-<!-- Products Grid -->
 <section class="products">
   <div class="product-grid" id="productGrid">
 
-    <!-- Sample Book Cards -->
     <div class="product-card" data-title="Introduction to Algorithms" data-author="Thomas H. Cormen" data-category="Programming" data-status="available">
       <span class="badge available">Available</span>
       <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg" alt="Introduction to Algorithms">
@@ -77,8 +106,6 @@
 
   </div>
 </section>
-
-<!-- Footer -->
 <footer>
   <p>© 2026 G7 Book Borrowing System | All Rights Reserved</p>
 </footer>

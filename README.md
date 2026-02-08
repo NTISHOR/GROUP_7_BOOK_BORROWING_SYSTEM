@@ -1,2 +1,0 @@
-# G7_BOOK_BORROWING_SYSTEM
-A Book Borrowing System For CSC 481
