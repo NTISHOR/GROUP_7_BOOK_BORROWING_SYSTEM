@@ -1,42 +1,47 @@
-const cartList = document.getElementById('cart-list');
-const subtotalCount = document.getElementById('subtotal-count');
-const totalItemsFinal = document.getElementById('total-items-final');
+const itemList = document.getElementById('itemList');
+const totalCountElement = document.getElementById('totalCount');
 
-// Load the data saved by script.js
+// 1. Get data from LocalStorage
 let borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
 
-function renderCart() {
-    cartList.innerHTML = ""; 
+function displayCart() {
+    itemList.innerHTML = ""; // Clear list
     
     if (borrowedBooks.length === 0) {
-        cartList.innerHTML = "<h3>Your cart is empty.</h3><a href='index.html'>Go back to borrow books</a>";
+        itemList.innerHTML = "<p>Your list is empty. Go back and add some books!</p>";
+        totalCountElement.innerText = "0";
+        return;
     }
 
     borrowedBooks.forEach((book, index) => {
-        const bookDiv = document.createElement('div');
-        bookDiv.className = 'book-card';
-        bookDiv.innerHTML = `
+        const itemDiv = document.createElement('div');
+        itemDiv.className = "cart-item";
+        itemDiv.innerHTML = `
             <img src="${book.image}" alt="Book Cover">
-            <div class="book-info">
+            <div class="item-details">
                 <h4>${book.title}</h4>
-                <p style="color: #777;">By ${book.author}</p>
+                <p>${book.author}</p>
             </div>
-            <button class="remove-btn" onclick="removeItem(${index})">🗑️</button>
+            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
         `;
-        cartList.appendChild(bookDiv);
+        itemList.appendChild(itemDiv);
     });
 
-    // Update the Summary side-bar
-    subtotalCount.innerText = borrowedBooks.length;
-    totalItemsFinal.innerText = borrowedBooks.length;
+    totalCountElement.innerText = borrowedBooks.length;
 }
 
-// Function to remove a single book
+// 2. Remove Function
 window.removeItem = function(index) {
+    // Remove the specific book from the array
     borrowedBooks.splice(index, 1);
+    
+    // Update LocalStorage
     localStorage.setItem('borrowedBooks', JSON.stringify(borrowedBooks));
     localStorage.setItem('cartTotal', borrowedBooks.length);
-    renderCart();
+    
+    // Refresh the display
+    displayCart();
 };
 
-renderCart();
+// Initialize the page
+displayCart();
