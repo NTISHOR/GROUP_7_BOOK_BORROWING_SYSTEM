@@ -75,17 +75,19 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
-.login {
+#login {
   background-color: #008080; /* Teal */
   color: white;
   border: none;
   margin-right: 4%;
 }
-.create {
+#create {
   background-color: white;
   color: #008080;
   border: 1px solid #008080;
 }
+
+
 .footer {
   font-size: 12px;
   color: #888;
