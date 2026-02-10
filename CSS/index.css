@@ -1,40 +1,21 @@
-/* Base */
-/* Cart Icon & Badge Styling */
-.cart-container {
-  position: relative;
-  display: inline-block;
-  margin-right: 5px;
-  vertical-align: middle;
-}
-
-#cart-icon {
-  font-size: 1.2rem;
-}
-
-#cart-count {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: #ff4757; /* Bright Red */
-  color: white;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 0.7rem;
-  font-weight: bold;
-  display: none; /* Hidden by default when count is 0 */
-}
+/* =========================
+   BASE / RESET
+========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
 body {
-  background: #f5f7fb;
+  background-color: #f5f7fb;
+  color: #333;
 }
 
-/* Header */
+/* =========================
+   HEADER & NAV
+========================= */
 header {
   background: #1e3a8a;
   padding: 20px 60px;
@@ -44,35 +25,101 @@ header {
   color: white;
 }
 
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
 nav a {
   color: white;
   margin-left: 20px;
   text-decoration: none;
+  font-weight: 500;
 }
 
 nav a:hover {
   text-decoration: underline;
 }
 
-/* Hero */
+nav .btn {
+  background: #f97316;
+  padding: 8px 15px;
+  border-radius: 6px;
+}
+
+/* =========================
+   CART ICON & BADGE
+========================= */
+.cart-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 15px;
+  vertical-align: middle;
+}
+
+#cart-icon {
+  font-size: 1.3rem;
+}
+
+#cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff4757;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  display: none;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
 .hero {
-  text-align: center;
-  padding: 40px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 70px 60px;
   background: #eef2ff;
 }
 
+.hero-text {
+  max-width: 520px;
+}
+
+.hero-text h1,
 .hero-text h2 {
-  font-size: 36px;
+  font-size: 42px;
   color: #1e3a8a;
   margin-bottom: 15px;
 }
 
 .hero-text p {
-  font-size: 16px;
+  font-size: 18px;
+  line-height: 1.6;
   color: #555;
 }
 
-/* Search & Filter */
+.cta-btn {
+  display: inline-block;
+  margin-top: 25px;
+  background: #1e3a8a;
+  color: white;
+  padding: 15px 30px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.hero-image img {
+  width: 380px;
+}
+
+/* =========================
+   SEARCH & FILTER
+========================= */
 .search-filter {
   display: flex;
   justify-content: center;
@@ -80,7 +127,8 @@ nav a:hover {
   margin: 30px 0;
 }
 
-.search-filter input, .search-filter select {
+.search-filter input,
+.search-filter select {
   padding: 10px 15px;
   font-size: 14px;
   border-radius: 8px;
@@ -88,13 +136,18 @@ nav a:hover {
   width: 200px;
 }
 
-/* Product Grid */
+/* =========================
+   PRODUCTS / BOOKS
+========================= */
 .products {
-  padding: 40px 60px;
+  padding: 60px;
+  background: white;
 }
 
 .products h2 {
-  margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 32px;
   color: #1e3a8a;
 }
 
@@ -104,9 +157,11 @@ nav a:hover {
   gap: 25px;
 }
 
-/* Product Card */
+/* =========================
+   PRODUCT CARD
+========================= */
 .product-card {
-  background: white;
+  background: #ffffff;
   border-radius: 12px;
   padding: 15px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -137,23 +192,42 @@ nav a:hover {
   color: #555;
 }
 
-/* Borrow Button */
-.product-card button {
-  width: 100%;
-  margin-top: 10px;
+/* =========================
+   BUTTONS
+========================= */
+.button-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.button-container button {
   padding: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.button-container button:first-child {
   background: #f97316;
   color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
 }
 
-.product-card button:hover {
-  background: #ea580c;
+.button-container button:last-child {
+  background: #1e3a8a;
+  color: white;
 }
 
-/* Badge */
+.button-container button:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   BADGES
+========================= */
 .badge {
   position: absolute;
   top: 12px;
@@ -168,7 +242,9 @@ nav a:hover {
 .badge.available { background: #16a34a; }
 .badge.borrowed { background: #dc2626; }
 
-/* Footer */
+/* =========================
+   FOOTER
+========================= */
 footer {
   background: #1e3a8a;
   color: white;
@@ -177,8 +253,24 @@ footer {
   margin-top: 40px;
 }
 
-/* Responsive */
-@media(max-width: 768px) {
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  header {
+    padding: 15px 25px;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-image img {
+    margin-top: 30px;
+    width: 280px;
+  }
+
   .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
@@ -188,7 +280,8 @@ footer {
     align-items: center;
   }
 
-  .search-filter input, .search-filter select {
+  .search-filter input,
+  .search-filter select {
     width: 90%;
   }
 }
