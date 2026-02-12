@@ -21,13 +21,7 @@
     <nav class="sidebar-nav">
         <a href="#">Profile Details</a>
         <a href="#">My Borrowed Books</a>
-        <div class="dark-mode-row">
-            <span>Dark Mode</span>
-            <label class="switch">
-                <input type="checkbox" id="darkModeToggle">
-                <span class="slider round"></span>
-            </label>
-        </div>
+        <a href="login.html" id="logoutBtn" style="color: #ff4757; margin-top: 20px; border-top: 1px solid #eee;">Logout</a>
     </nav>
 </div>
 
@@ -54,10 +48,12 @@
     </div>
 
     <nav class="header-nav">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a> <a href="cart.html" class="cart-link">
-        🛒<span id="cart-count">0</span> </a>
-</nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a> 
+        <a href="cart.html" class="cart-link">
+            🛒 <span id="cart-count">0</span> 
+        </a>
+    </nav>
 </header>
 
 <div class="product-grid" id="productGrid">
@@ -66,156 +62,7 @@
     <img src="https://covers.openlibrary.org/b/id/10431252-L.jpg">
     <h3>Eloquent JavaScript</h3><p>Marijn Haverbeke</p><button>Borrow Book</button>
   </div>
-  <div class="product-card" data-title="Clean Code" data-author="Robert Martin" data-category="Programming">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/10523338-L.jpg">
-    <h3>Clean Code</h3><p>Robert Martin</p><button>Borrow Book</button>
   </div>
-  <div class="product-card" data-title="Python Crash Course" data-author="Eric Matthes" data-category="Programming">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12815308-L.jpg">
-    <h3>Python Crash Course</h3><p>Eric Matthes</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="The Pragmatic Programmer" data-author="Andrew Hunt" data-category="Programming">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/10292534-L.jpg">
-    <h3>Pragmatic Programmer</h3><p>Andrew Hunt</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="JavaScript: The Good Parts" data-author="Douglas Crockford" data-category="Programming">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12613501-L.jpg">
-    <h3>The Good Parts</h3><p>Douglas Crockford</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="Effective Java" data-author="Joshua Bloch" data-category="Programming">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/11186851-L.jpg">
-    <h3>Effective Java</h3><p>Joshua Bloch</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="Introduction to Algorithms" data-author="Cormen" data-category="Programming">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12842422-L.jpg">
-    <h3>Intro to Algorithms</h3><p>Cormen et al.</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="React Up and Running" data-author="Stoyan Stefanov" data-category="Programming">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12629641-L.jpg">
-    <h3>React Up and Running</h3><p>Stoyan Stefanov</p><button>Borrow Book</button>
-  </div>
-
-  <div class="product-card" data-title="The Great Gatsby" data-author="F. Scott Fitzgerald" data-category="Fiction">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/8432047-L.jpg">
-    <h3>The Great Gatsby</h3><p>F. Scott Fitzgerald</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="1984" data-author="George Orwell" data-category="Fiction">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12648777-L.jpg">
-    <h3>1984</h3><p>George Orwell</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="The Hobbit" data-author="J.R.R. Tolkien" data-category="Fiction">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12547191-L.jpg">
-    <h3>The Hobbit</h3><p>J.R.R. Tolkien</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="The Alchemist" data-author="Paulo Coelho" data-category="Fiction">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12711093-L.jpg">
-    <h3>The Alchemist</h3><p>Paulo Coelho</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="Atomic Habits" data-author="James Clear" data-category="Fiction">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12843460-L.jpg">
-    <h3>Atomic Habits</h3><p>James Clear</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="Brave New World" data-author="Aldous Huxley" data-category="Fiction">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12842422-L.jpg">
-    <h3>Brave New World</h3><p>Aldous Huxley</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="To Kill a Mockingbird" data-author="Harper Lee" data-category="Fiction">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12836254-L.jpg">
-    <h3>To Kill a Mockingbird</h3><p>Harper Lee</p><button>Borrow Book</button>
-  </div>
-
-  <div class="product-card" data-title="Database Systems" data-author="Ramez Elmasri" data-category="Database">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/9874156-L.jpg">
-    <h3>Database Systems</h3><p>Ramez Elmasri</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="SQL Performance Explained" data-author="Markus Winand" data-category="Database">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/10578857-L.jpg">
-    <h3>SQL Explained</h3><p>Markus Winand</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="Designing Data-Intensive Apps" data-author="Martin Kleppmann" data-category="Database">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/10502127-L.jpg">
-    <h3>Data-Intensive Apps</h3><p>Martin Kleppmann</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="Learning SQL" data-author="Alan Beaulieu" data-category="Database">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg">
-    <h3>Learning SQL</h3><p>Alan Beaulieu</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="NoSQL Distilled" data-author="Pramod Sadalage" data-category="Database">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12739345-L.jpg">
-    <h3>NoSQL Distilled</h3><p>Pramod Sadalage</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="SQL CookBook" data-author="Anthony Molinaro" data-category="Database">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12822557-L.jpg">
-    <h3>SQL CookBook</h3><p>Anthony Molinaro</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="MongoDB: The Definitive Guide" data-author="Shannon Bradshaw" data-category="Database">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12803867-L.jpg">
-    <h3>MongoDB Guide</h3><p>Shannon Bradshaw</p><button>Borrow Book</button>
-  </div>
-
-  <div class="product-card" data-title="Don't Make Me Think" data-author="Steve Krug" data-category="Design">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/8225266-L.jpg">
-    <h3>Don't Make Me Think</h3><p>Steve Krug</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="Thinking with Type" data-author="Ellen Lupton" data-category="Design">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/10452311-L.jpg">
-    <h3>Thinking with Type</h3><p>Ellen Lupton</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="Design of Everyday Things" data-author="Don Norman" data-category="Design">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/8225255-L.jpg">
-    <h3>Design of Things</h3><p>Don Norman</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="Grid Systems" data-author="Josef Müller-Brockmann" data-category="Design">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12563852-L.jpg">
-    <h3>Grid Systems</h3><p>Josef Müller-Brockmann</p><button>Borrow Book</button>
-  </div>
-
-  <div class="product-card" data-title="Children in Second World War" data-author="Life Story" data-category="History">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12543322-L.jpg">
-    <h3>Children of WWII</h3><p>Historical Archive</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="Sapiens" data-author="Yuval Noah Harari" data-category="History">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12822080-L.jpg">
-    <h3>Sapiens</h3><p>Yuval Noah Harari</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="Philosophy of Marcus Garvey" data-author="Marcus Garvey" data-category="History">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/12431441-L.jpg">
-    <h3>Marcus Garvey</h3><p>Historical Archive</p><button>Borrow Book</button>
-  </div>
-  <div class="product-card" data-title="The Guns of August" data-author="Barbara Tuchman" data-category="History">
-    <span class="badge available">Available</span>
-    <img src="https://covers.openlibrary.org/b/id/8243606-L.jpg">
-    <h3>The Guns of August</h3><p>Barbara Tuchman</p><button>Borrow Book</button>
-  </div>
-</div>
 
 <footer class="main-footer">
     <span class="footer-brand">📚 G7 Book Borrowing System</span>
@@ -232,19 +79,16 @@
 <div id="bookModal" class="modal">
   <div class="modal-content">
     <span id="closeQuickView" class="close-modal">&times;</span>
-    
     <div class="modal-body">
       <img id="modalImg" src="" alt="Book Cover">
       <div class="modal-info">
         <h2 id="modalTitle"></h2>
         <p id="modalAuthor" style="font-weight: bold; color: #555; margin-bottom: 10px;"></p>
         <p id="modalDesc">This is a premium library edition. Experience the full depth of this literature, now available for borrowing through the G7 BBS system.</p>
-        
         <div class="modal-meta" style="margin: 15px 0;">
           <p><strong>Category:</strong> <span id="modalCat"></span></p>
           <p><strong>Status:</strong> <span style="color: #2ed573; font-weight: bold;">Available</span></p>
         </div>
-        
         <button id="modalBorrowBtn">Borrow Now</button>
       </div>
     </div>

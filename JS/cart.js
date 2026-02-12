@@ -1,14 +1,15 @@
 const itemList = document.getElementById('itemList');
 const totalCountElement = document.getElementById('totalCount');
 
-// 1. Get data from LocalStorage
+// 1. Get data from Local Storage
 let borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
 
 function displayCart() {
-    itemList.innerHTML = ""; // Clear list
+    if (!itemList) return; // Safety check
+    itemList.innerHTML = ""; 
     
     if (borrowedBooks.length === 0) {
-        itemList.innerHTML = "<p>Your list is empty. Go back and add some books!</p>";
+        itemList.innerHTML = "<p style='text-align:center; padding: 20px;'>Your list is empty. Go back and add some books!</p>";
         totalCountElement.innerText = "0";
         return;
     }
@@ -32,15 +33,27 @@ function displayCart() {
 
 // 2. Remove Function
 window.removeItem = function(index) {
-    // Remove the specific book from the array
     borrowedBooks.splice(index, 1);
     
-    // Update LocalStorage
+    // Update Local Storage
     localStorage.setItem('borrowedBooks', JSON.stringify(borrowedBooks));
     localStorage.setItem('cartTotal', borrowedBooks.length);
     
-    // Refresh the display
     displayCart();
+};
+
+// 3. Confirm Borrowing Function
+window.confirmBorrow = function() {
+    if (borrowedBooks.length === 0) {
+        alert("Your borrowing list is empty!");
+        return;
+    }
+    alert("Success! You have borrowed " + borrowedBooks.length + " books. Please return them within 14 days.");
+    
+    // Clear the cart after successful borrowing
+    localStorage.removeItem('borrowedBooks');
+    localStorage.setItem('cartTotal', 0);
+    window.location.href = "dashborad.html"; // Ensure this matches your filename
 };
 
 // Initialize the page

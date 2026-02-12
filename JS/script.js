@@ -4,6 +4,7 @@ const categorySelect = document.getElementById('category');
 const productGrid = document.getElementById('productGrid');
 const cartCountElement = document.getElementById('cart-count');
 
+// Initialize list from Local Storage
 let borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
 
 updateCartUI();
@@ -49,12 +50,10 @@ if (productGrid) {
         const card = e.target.closest('.product-card');
         if (!card) return; 
 
-        // If clicking the borrow button on the main grid
         if (e.target.tagName === 'BUTTON' && !e.target.disabled) {
             handleBorrow(card);
             return; 
         }
-        // Otherwise, open the modal
         showQuickView(card);
     });
 }
@@ -81,14 +80,13 @@ function showQuickView(card) {
 
     if (isAlreadyBorrowed) {
         modalBorrowBtn.innerText = "Already Borrowed";
-        modalBorrowBtn.classList.add('borrowed-btn'); // Matches CSS for disabled look
+        modalBorrowBtn.classList.add('borrowed-btn');
         modalBorrowBtn.disabled = true;
     } else {
         modalBorrowBtn.innerText = "Borrow Now";
         modalBorrowBtn.classList.remove('borrowed-btn');
         modalBorrowBtn.disabled = false;
         
-        // This is the key: clicking borrow inside the modal triggers the fly
         modalBorrowBtn.onclick = () => {
             handleBorrow(card);
             modal.style.display = "none";
@@ -103,10 +101,12 @@ function handleBorrow(card) {
     const bookImg = card.querySelector('img');
     const button = card.querySelector('button');
     const badge = card.querySelector('.badge');
+    const author = card.querySelector('p').innerText;
 
-    animateToCart(bookImg); // Animation Triggered
+    animateToCart(bookImg);
 
-    borrowedBooks.push({ title, category });
+    // Save full book data for the cart page
+    borrowedBooks.push({ title, category, author, image: bookImg.src });
     localStorage.setItem('borrowedBooks', JSON.stringify(borrowedBooks));
 
     setBorrowedState(button, badge);
@@ -143,7 +143,7 @@ function checkExistingBorrowed() {
     });
 }
 
-// --- 6. ANIMATION FIX ---
+// --- 6. ANIMATION ---
 function animateToCart(bookImageElement) {
     const cart = document.querySelector('.cart-link'); 
     if (!cart || !bookImageElement) return;
@@ -152,17 +152,18 @@ function animateToCart(bookImageElement) {
     flyingImg.src = bookImageElement.src;
     flyingImg.classList.add('flying-book');
     
-    // Get exact starting position
     const rect = bookImageElement.getBoundingClientRect();
+    flyingImg.style.position = 'fixed';
+    flyingImg.style.zIndex = '1000';
     flyingImg.style.left = rect.left + 'px';
     flyingImg.style.top = rect.top + 'px';
     flyingImg.style.width = rect.width + 'px';
+    flyingImg.style.transition = 'all 0.8s ease-in-out';
     
     document.body.appendChild(flyingImg);
 
     const cartRect = cart.getBoundingClientRect();
 
-    // Use a slight delay to ensure the transition triggers
     setTimeout(() => {
         flyingImg.style.left = (cartRect.left + 10) + 'px';
         flyingImg.style.top = (cartRect.top + 10) + 'px';
