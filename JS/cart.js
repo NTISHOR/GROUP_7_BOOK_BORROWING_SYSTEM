@@ -1,60 +1,59 @@
 const itemList = document.getElementById('itemList');
 const totalCountElement = document.getElementById('totalCount');
 
-// 1. Get data from Local Storage
+// 1. Load data
 let borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
 
 function displayCart() {
-    if (!itemList) return; // Safety check
+    if (!itemList) return;
     itemList.innerHTML = ""; 
     
+    // If no books, show a message
     if (borrowedBooks.length === 0) {
-        itemList.innerHTML = "<p style='text-align:center; padding: 20px;'>Your list is empty. Go back and add some books!</p>";
-        totalCountElement.innerText = "0";
+        itemList.innerHTML = "<p style='text-align:center; padding: 20px; color: #666;'>Your list is empty. Go back to the Library to add books!</p>";
+        if(totalCountElement) totalCountElement.innerText = "0";
         return;
     }
 
+    // Show the books
     borrowedBooks.forEach((book, index) => {
         const itemDiv = document.createElement('div');
         itemDiv.className = "cart-item";
+        const bookImg = book.image || "https://via.placeholder.com/60x80?text=Book";
+        
         itemDiv.innerHTML = `
-            <img src="${book.image}" alt="Book Cover">
+            <img src="${bookImg}" alt="Book Cover">
             <div class="item-details">
                 <h4>${book.title}</h4>
-                <p>${book.author}</p>
+                <p>${book.author || 'G7 Author'}</p>
             </div>
             <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
         `;
         itemList.appendChild(itemDiv);
     });
 
-    totalCountElement.innerText = borrowedBooks.length;
+    if(totalCountElement) totalCountElement.innerText = borrowedBooks.length;
 }
 
-// 2. Remove Function
+// 2. Remove Book
 window.removeItem = function(index) {
     borrowedBooks.splice(index, 1);
-    
-    // Update Local Storage
     localStorage.setItem('borrowedBooks', JSON.stringify(borrowedBooks));
-    localStorage.setItem('cartTotal', borrowedBooks.length);
-    
     displayCart();
 };
 
-// 3. Confirm Borrowing Function
+// 3. Confirm Function (NO alerts, NO dashboard redirects)
 window.confirmBorrow = function() {
-    if (borrowedBooks.length === 0) {
+    const currentCart = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
+
+    if (currentCart.length === 0) {
         alert("Your borrowing list is empty!");
         return;
     }
-    alert("Success! You have borrowed " + borrowedBooks.length + " books. Please return them within 14 days.");
     
-    // Clear the cart after successful borrowing
-    localStorage.removeItem('borrowedBooks');
-    localStorage.setItem('cartTotal', 0);
-    window.location.href = "dashborad.html"; // Ensure this matches your filename
+    // Using './' tells the browser to look in the EXACT same folder as cart.html
+    window.location.href = "./borrow_detail.html"; 
 };
 
-// Initialize the page
+// Start the display
 displayCart();

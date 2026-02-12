@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowing Details | G7 BBS</title>
+    <link rel="stylesheet" href="CSS/dashboard.css">
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --secondary-blue: #004085;
+            --bg-light: #f0f5ff;
+            --success: #2ed573;
+            --border-color: #e1e8f0;
+        }
+        body { background-color: var(--bg-light); color: #333; margin: 0; font-family: 'Segoe UI', sans-serif; }
+        
+        .top-nav-bar { background: white; border-bottom: 1px solid #ddd; padding: 15px 5%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .back-to-library { color: var(--primary-blue); text-decoration: none; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+
+        .checkout-container { max-width: 1200px; margin: 30px auto; display: grid; grid-template-columns: 1.7fr 1.3fr; gap: 30px; padding: 0 20px; }
+        
+        .step-box { background: white; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .step-header { padding: 18px 25px; display: flex; align-items: center; border-bottom: 1px solid #f1f1f2; font-weight: bold; background: #fafafa; border-radius: 8px 8px 0 0; }
+        .step-number { background: var(--primary-blue); color: white; border-radius: 50%; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; }
+        .step-content { padding: 25px; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: span 2; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--secondary-blue); font-size: 0.9rem; }
+        .form-group input { width: 100%; padding: 14px; border: 1px solid #d1d9e0; border-radius: 6px; font-size: 1rem; box-sizing: border-box; }
+
+        .option-card { border: 1px solid #ddd; padding: 20px; border-radius: 10px; display: flex; gap: 18px; align-items: center; margin-bottom: 12px; cursor: pointer; transition: 0.3s; }
+        .option-card.active { border: 2.5px solid var(--primary-blue); background: rgba(0, 86, 179, 0.05); }
+        .radio-dot { width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 50%; position: relative; flex-shrink: 0; }
+        .active .radio-dot { border-color: var(--primary-blue); }
+        .active .radio-dot::after { content: ''; width: 12px; height: 12px; background: var(--primary-blue); border-radius: 50%; position: absolute; top: 2px; left: 2px; }
+
+        .order-summary { background: white; border-radius: 12px; padding: 35px; border: 1px solid var(--border-color); position: sticky; top: 110px; box-shadow: 0 10px 30px rgba(0, 86, 179, 0.1); }
+        .order-summary h3 { margin: 0 0 25px; color: var(--secondary-blue); border-bottom: 2px solid var(--bg-light); padding-bottom: 15px; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 1.1rem; }
+        .total-row { border-top: 2px solid var(--bg-light); padding-top: 20px; margin-top: 10px; font-weight: 800; font-size: 1.6rem; color: var(--secondary-blue); }
+        
+        .btn-confirm { background: var(--primary-blue); color: white; border: none; width: 100%; padding: 18px; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 15px; }
+        .btn-outline { background: white; color: var(--primary-blue); border: 2px solid var(--primary-blue); width: 100%; padding: 16px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; text-align: center; display: block; text-decoration: none; }
+
+        @media (max-width: 900px) { .checkout-container { grid-template-columns: 1fr; } }
+        /* Spinner Animation */
+.spinner {
+    display: none; /* Hidden by default */
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* State when button is processing */
+.btn-confirm.loading {
+    background-color: #a0b3ce; /* Faded blue */
+    cursor: not-allowed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+    </style>
+</head>
+<body>
+    <div class="top-nav-bar">
+        <h1 style="margin:0; font-size: 1.5rem; color: var(--secondary-blue);">📚 G7 BBS</h1>
+        <a href="dashborad.html" class="back-to-library">❮ Go back & continue borrowing</a>
+    </div>
+
+    <div class="checkout-container">
+        <div class="steps-column">
+            <div class="step-box">
+                <div class="step-header"><span class="step-number">1</span> 1. CUSTOMER ADDRESS</div>
+                <div class="step-content">
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="e.g. Marvellous Chimdindu" id="custName">
+                        </div>
+                        <div class="form-group"><label>Phone Number</label><input type="text" placeholder="+234..." id="custPhone"></div>
+                        <div class="form-group"><label>Student ID</label><input type="text" placeholder="#G7-2026" id="custID"></div>
+                        <div class="form-group full-width"><label>Department / Faculty</label><input type="text" placeholder="e.g. Computer Science Department" id="custDept"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header"><span class="step-number">2</span> 2. DELIVERY DETAILS</div>
+                <div class="step-content">
+                    <div class="option-card active" data-fee="0" onclick="selectOption(this, 'delivery')">
+                        <div class="radio-dot"></div>
+                        <div>
+                            <strong>Library Pickup Desk</strong>
+                            <p style="font-size: 0.85rem; color: #666; margin: 4px 0 0;">Ready at the front desk in 15 mins (Free)</p>
+                        </div>
+                    </div>
+                    <div class="option-card" data-fee="200" onclick="selectOption(this, 'delivery')">
+                        <div class="radio-dot"></div>
+                        <div>
+                            <strong>Department Delivery</strong>
+                            <p style="font-size: 0.85rem; color: #666; margin: 4px 0 0;">Delivered to your faculty office (+ ₦200 service fee)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <div class="step-header"><span class="step-number">3</span> 3. PAYMENT METHOD</div>
+                <div class="step-content">
+                    <div class="option-card active">
+                        <div class="radio-dot"></div>
+                        <div>
+                            <strong>Pay on Delivery / Pickup</strong>
+                            <p style="font-size: 0.85rem; color: #666; margin: 4px 0 0;">Pay any service fees when you receive the book</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-column">
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-row"><span>Books borrowed:</span><span id="bookCount">0</span></div>
+                <div class="summary-row"><span>Library Fee (₦100/bk):</span><span id="libFeeDisplay">₦ 0</span></div>
+                <div class="summary-row"><span>Delivery Service:</span><span id="serviceFee">₦ 0</span></div>
+                <div class="total-row"><span>Total Due</span><span id="totalDisplay">₦ 0.00</span></div>
+                
+                <button class="btn-confirm" id="confirmBtn" onclick="processOrder()">
+    <span id="btnText">CONFIRM BORROWING</span>
+    <div id="loader" class="spinner"></div>
+</button>
+                <a href="dashborad.html" class="btn-outline">GO BACK TO LIBRARY</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
+        const LIB_FEE_PER_BOOK = 100; // Library fee per book in Naira
+        let currentDeliveryFee = 0;
+
+        function updateCalculations() {
+            const count = borrowedBooks.length;
+            const totalLibFee = count * LIB_FEE_PER_BOOK;
+            const finalTotal = totalLibFee + currentDeliveryFee;
+
+            document.getElementById('bookCount').innerText = count;
+            document.getElementById('libFeeDisplay').innerText = "₦ " + totalLibFee;
+            document.getElementById('serviceFee').innerText = "₦ " + currentDeliveryFee;
+            document.getElementById('totalDisplay').innerText = "₦ " + finalTotal.toFixed(2);
+            
+            // Save total for success page
+            localStorage.setItem('lastTotalCharge', finalTotal);
+        }
+
+        function selectOption(element, type) {
+            const cards = element.parentElement.querySelectorAll('.option-card');
+            cards.forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+
+            if(type === 'delivery') {
+                currentDeliveryFee = parseInt(element.getAttribute('data-fee'));
+                updateCalculations();
+            }
+        }
+
+       function processOrder() {
+    const name = document.getElementById('custName').value;
+    const phone = document.getElementById('custPhone').value;
+    const btn = document.getElementById('confirmBtn');
+    const loader = document.getElementById('loader');
+    const btnText = document.getElementById('btnText');
+
+    // 1. Validation check
+    if (!name || !phone) { 
+        alert("Please fill in your Name and Phone Number!"); 
+        return; 
+    }
+
+    // 2. Start Animation
+    btn.disabled = true; // Prevent double clicks
+    btn.classList.add('loading');
+    loader.style.display = 'block';
+    btnText.innerText = "Processing Request...";
+
+    // 3. Wait 4 seconds then finish
+    setTimeout(() => {
+        // Change text to let the user know it's done right before moving
+        btnText.innerText = "Order Confirmed!";
+        
+        // Clear cart data now that order is confirmed
+        localStorage.removeItem('borrowedBooks');
+        localStorage.setItem('cartTotal', 0);
+        
+        // Go to success page
+        window.location.href = 'success.html';
+    }, 4000); // 4000ms = 4 seconds
+}
+        // Initialize the page display
+        updateCalculations();
+    </script>
+</body>
+</html>
