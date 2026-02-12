@@ -5,7 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G7 Book Borrowing System</title>
     <link rel="stylesheet" href="CSS/index.css">
-  </head>
+    <style>
+        /* Responsive CSS Additions */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            flex-wrap: wrap; /* Allows menu to wrap on small screens */
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px 5%;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Default 4 columns */
+            gap: 20px;
+            padding: 20px 5%;
+        }
+
+        /* Tablet View */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+            }
+        }
+
+        /* Mobile View */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav {
+                display: flex;
+                gap: 10px;
+                font-size: 0.9rem;
+            }
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            .product-grid {
+                grid-template-columns: 1fr; /* 1 column for phones */
+            }
+            .hero-image img {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
 <body>
 
 <header>
@@ -33,44 +92,41 @@
     </div>
 </section>
 
-
 <section class="products">
-    <h2>Popular Books</h2>
+    <h2 style="text-align: center; margin-top: 40px;">Popular Books</h2>
 
     <div class="product-grid">
-
         <div class="product-card">
-            <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg" alt="">
+            <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg" alt="Algorithms" style="width: 100%;">
             <h3>Introduction to Algorithms</h3>
             <p>Thomas H. Cormen</p>
             <button>Borrow</button>
         </div>
 
         <div class="product-card">
-            <img src="https://covers.openlibrary.org/b/id/10523338-L.jpg" alt="">
+            <img src="https://covers.openlibrary.org/b/id/10523338-L.jpg" alt="Clean Code" style="width: 100%;">
             <h3>Clean Code</h3>
             <p>Robert C. Martin</p>
             <button>Borrow</button>
         </div>
 
         <div class="product-card">
-            <img src="https://covers.openlibrary.org/b/id/9874156-L.jpg" alt="">
+            <img src="https://covers.openlibrary.org/b/id/9874156-L.jpg" alt="Database" style="width: 100%;">
             <h3>Database Systems</h3>
             <p>Ramez Elmasri</p>
             <button>Borrow</button>
         </div>
 
         <div class="product-card">
-            <img src="https://covers.openlibrary.org/b/id/8231991-L.jpg" alt="">
+            <img src="https://covers.openlibrary.org/b/id/8231991-L.jpg" alt="OS" style="width: 100%;">
             <h3>Operating Systems</h3>
             <p>Abraham Silberschatz</p>
             <button>Borrow</button>
         </div>
-
     </div>
 </section>
 
-<footer>
+<footer style="text-align: center; padding: 20px; border-top: 1px solid #ddd; margin-top: 40px;">
     <p>© 2026 G7 BBS — G7 Book Borrowing System</p>
 </footer>
 

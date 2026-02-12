@@ -5,6 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Cart | G7 BBS</title>
   <link rel="stylesheet" href="CSS/cart.css">
+  <style>
+    /* --- Cart Responsiveness --- */
+
+/* Tablets and small screens */
+@media (max-width: 992px) {
+    .container {
+        display: flex;
+        flex-direction: column; /* Stack the list and summary vertically */
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .summary-card {
+        width: 100%; /* Take full width on smaller screens */
+        position: static; /* Remove sticky positioning if you had it */
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 600px) {
+    h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .cart-item {
+        flex-direction: column; /* Stack book image and text */
+        text-align: center;
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .cart-item img {
+        width: 100px; /* Centered, larger image for mobile */
+        margin: 0 auto;
+    }
+
+    .item-details {
+        margin-bottom: 10px;
+    }
+
+    .remove-btn {
+        width: 100%; /* Easy to tap with a thumb */
+        padding: 12px;
+    }
+
+    .checkout-btn {
+        font-size: 1.1rem;
+        padding: 16px;
+    }
+}
+  </style>
 </head>
 <body>
 

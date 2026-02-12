@@ -44,37 +44,29 @@
         .btn-confirm { background: var(--primary-blue); color: white; border: none; width: 100%; padding: 18px; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 15px; }
         .btn-outline { background: white; color: var(--primary-blue); border: 2px solid var(--primary-blue); width: 100%; padding: 16px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; text-align: center; display: block; text-decoration: none; }
 
-        @media (max-width: 900px) { .checkout-container { grid-template-columns: 1fr; } }
         /* Spinner Animation */
-.spinner {
-    display: none; /* Hidden by default */
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: #fff;
-    animation: spin 1s ease-in-out infinite;
-}
+        .spinner { display: none; width: 20px; height: 20px; border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn-confirm.loading { background-color: #a0b3ce; cursor: not-allowed; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 900px) {
+            .checkout-container { grid-template-columns: 1fr; margin-top: 15px; }
+            .order-summary { position: static; padding: 25px; }
+        }
 
-/* State when button is processing */
-.btn-confirm.loading {
-    background-color: #a0b3ce; /* Faded blue */
-    cursor: not-allowed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; } /* Stack form inputs on small phones */
+            .full-width { grid-column: span 1; }
+            .top-nav-bar { flex-direction: column; gap: 10px; text-align: center; }
+            .option-card { padding: 15px; gap: 10px; }
+        }
     </style>
 </head>
 <body>
     <div class="top-nav-bar">
         <h1 style="margin:0; font-size: 1.5rem; color: var(--secondary-blue);">📚 G7 BBS</h1>
-        <a href="dashborad.html" class="back-to-library">❮ Go back & continue borrowing</a>
+        <a href="cart.html" class="back-to-library">❮ Go back & continue borrowing</a>
     </div>
 
     <div class="checkout-container">
@@ -137,9 +129,9 @@
                 <div class="total-row"><span>Total Due</span><span id="totalDisplay">₦ 0.00</span></div>
                 
                 <button class="btn-confirm" id="confirmBtn" onclick="processOrder()">
-    <span id="btnText">CONFIRM BORROWING</span>
-    <div id="loader" class="spinner"></div>
-</button>
+                    <span id="btnText">CONFIRM BORROWING</span>
+                    <div id="loader" class="spinner"></div>
+                </button>
                 <a href="dashborad.html" class="btn-outline">GO BACK TO LIBRARY</a>
             </div>
         </div>
@@ -147,7 +139,7 @@
 
     <script>
         const borrowedBooks = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
-        const LIB_FEE_PER_BOOK = 100; // Library fee per book in Naira
+        const LIB_FEE_PER_BOOK = 100; 
         let currentDeliveryFee = 0;
 
         function updateCalculations() {
@@ -160,7 +152,6 @@
             document.getElementById('serviceFee').innerText = "₦ " + currentDeliveryFee;
             document.getElementById('totalDisplay').innerText = "₦ " + finalTotal.toFixed(2);
             
-            // Save total for success page
             localStorage.setItem('lastTotalCharge', finalTotal);
         }
 
@@ -175,39 +166,31 @@
             }
         }
 
-       function processOrder() {
-    const name = document.getElementById('custName').value;
-    const phone = document.getElementById('custPhone').value;
-    const btn = document.getElementById('confirmBtn');
-    const loader = document.getElementById('loader');
-    const btnText = document.getElementById('btnText');
+        function processOrder() {
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value;
+            const btn = document.getElementById('confirmBtn');
+            const loader = document.getElementById('loader');
+            const btnText = document.getElementById('btnText');
 
-    // 1. Validation check
-    if (!name || !phone) { 
-        alert("Please fill in your Name and Phone Number!"); 
-        return; 
-    }
+            if (!name || !phone) { 
+                alert("Please fill in your Name and Phone Number!"); 
+                return; 
+            }
 
-    // 2. Start Animation
-    btn.disabled = true; // Prevent double clicks
-    btn.classList.add('loading');
-    loader.style.display = 'block';
-    btnText.innerText = "Processing Request...";
+            btn.disabled = true;
+            btn.classList.add('loading');
+            loader.style.display = 'block';
+            btnText.innerText = "Processing Request...";
 
-    // 3. Wait 4 seconds then finish
-    setTimeout(() => {
-        // Change text to let the user know it's done right before moving
-        btnText.innerText = "Order Confirmed!";
+            setTimeout(() => {
+                btnText.innerText = "Order Confirmed!";
+                localStorage.removeItem('borrowedBooks');
+                localStorage.setItem('cartTotal', 0);
+                window.location.href = 'success.html';
+            }, 4000); 
+        }
         
-        // Clear cart data now that order is confirmed
-        localStorage.removeItem('borrowedBooks');
-        localStorage.setItem('cartTotal', 0);
-        
-        // Go to success page
-        window.location.href = 'success.html';
-    }, 4000); // 4000ms = 4 seconds
-}
-        // Initialize the page display
         updateCalculations();
     </script>
 </body>

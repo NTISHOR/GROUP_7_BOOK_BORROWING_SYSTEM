@@ -3,22 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Borrowing Details | G7 BBS</title>
+    <title>Borrowing Confirmed | G7 BBS</title>
     <link rel="stylesheet" href="CSS/cart.css">
     <style>
-        .details-card { background: white; padding: 40px; border-radius: 15px; text-align: center; max-width: 600px; margin: 50px auto; border: 1px solid #e1e8f0; }
-        .status-badge { background: #2ed573; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; }
+        body { background-color: #f0f5ff; font-family: 'Segoe UI', sans-serif; }
+        
+        .details-card { 
+            background: white; 
+            padding: 40px 20px; 
+            border-radius: 15px; 
+            text-align: center; 
+            max-width: 500px; 
+            margin: 80px auto; 
+            border: 1px solid #e1e8f0; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .success-icon {
+            font-size: 60px;
+            color: #2ed573;
+            margin-bottom: 20px;
+        }
+
+        .status-badge { 
+            background: #2ed573; 
+            color: white; 
+            padding: 8px 20px; 
+            border-radius: 20px; 
+            font-weight: bold; 
+            display: inline-block;
+        }
+
+        .order-info {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .order-info p { margin: 8px 0; color: #444; }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 600px) {
+            .details-card {
+                margin: 40px 20px;
+                padding: 30px 15px;
+            }
+            h1 { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
     <div class="details-card">
+        <div class="success-icon">✔</div>
         <h1>Borrowing Confirmed!</h1>
         <p>Your request has been processed successfully.</p>
+        
         <div style="margin: 20px 0;">
             <span class="status-badge">Active Borrowing</span>
         </div>
-        <p><strong>Return Date:</strong> 14 Days from today</p>
+
+        <div class="order-info">
+            <p><strong>Order ID:</strong> <span id="orderId">G7-BBS-XXXX</span></p>
+            <p><strong>Total Paid:</strong> <span id="finalCharge">₦ 0.00</span></p>
+            <p><strong>Return Date:</strong> <span id="returnDate">Calculating...</span></p>
+        </div>
+
+        <p style="font-size: 0.9rem; color: #777;">A notification has been sent to the Library Desk.</p>
+        
         <a href="dashborad.html" class="back-link">← Back to Library</a>
     </div>
+
+    <script>
+        // Generate a random Order ID for the student
+        const randomId = "G7-BBS-" + Math.floor(1000 + Math.random() * 9000);
+        document.getElementById('orderId').innerText = randomId;
+
+        // Retrieve the total charge we saved in borrow_detail.html
+        const finalAmount = localStorage.getItem('lastTotalCharge') || "0.00";
+        document.getElementById('finalCharge').innerText = "₦ " + finalAmount;
+
+        // Calculate a date 14 days from today
+        const today = new Date();
+        const returnDate = new Date();
+        returnDate.setDate(today.getDate() + 14);
+        
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('returnDate').innerText = returnDate.toLocaleDateString(undefined, options);
+    </script>
 </body>
 </html>
