@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G7 BBS | Library</title>
+  <link rel="stylesheet" href="CSS/dashboard.css">
+
+  <style>
+    /* --- Dashboard Responsiveness --- */
+
+/* Tablets and small laptops */
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px 3%;
+    }
+}
+
+/* Mobile Landscape and large phones */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 15px;
+        height: auto;
+    }
+
+    .header-search {
+        width: 100%;
+        margin: 15px 0;
+        display: flex;
+        gap: 8px;
+    }
+
+    .header-search input {
+        flex: 2;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .header-nav {
+        width: 100%;
+        justify-content: space-around;
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+    }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 480px) {
+    .header-left h1 {
+        font-size: 1.2rem;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr; /* Single column for easy scrolling */
+        padding: 15px;
+    }
+
+    .product-card img {
+        height: 320px; /* Make images larger for better visibility on mobile */
+    }
+
+    .header-search {
+        flex-direction: column; /* Stack search and category dropdown */
+    }
+}
+  </style>
+</head>
+<body>
+
+<div id="mySidebar" class="sidebar">
+    <div class="sidebar-header">
+        <span id="closeSidebar" class="close-sidebar">&times;</span>
+    </div>
+    <div class="user-profile">
+        <div class="profile-avatar">G7</div>
+        <h3>Guest User</h3>
+        <p>Member ID: #G7-2026</p>
+    </div>
+    <hr>
+    <nav class="sidebar-nav">
+        <a href="#">Profile Details</a>
+        <a href="cart.html">My Borrowed Books</a>
+        <a href="login.html" id="logoutBtn" style="color: #ff4757; margin-top: 20px; border-top: 1px solid #eee;">Logout</a>
+    </nav>
+</div>
+
+<header>
+    <div class="header-left">
+        <div id="menuIcon" class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <h1>📚 G7 BBS</h1>
+    </div>
+
+    <div class="header-search">
+        <input type="text" id="search" placeholder="Search titles...">
+        <select id="category">
+            <option value="">All Categories</option>
+            <option value="Programming">Programming</option>
+            <option value="Database">Database</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Design">Design</option>
+            <option value="History">History</option>
+        </select>
+    </div>
+
+    <nav class="header-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a> 
+    <a href="cart.html" class="cart-link">
+        🛒 <span id="cart-count">0</span> 
+    </a>
+</nav>
+</header>
+
+<div class="product-grid" id="productGrid">
+  <div class="product-card" data-title="Eloquent JavaScript" data-author="Marijn Haverbeke" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10431252-L.jpg">
+    <h3>Eloquent JavaScript</h3><p>Marijn Haverbeke</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Clean Code" data-author="Robert C. Martin" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/11186714-L.jpg">
+    <h3>Clean Code</h3><p>Robert C. Martin</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Database System Concepts" data-author="Abraham Silberschatz" data-category="Database">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/8330756-L.jpg">
+    <h3>Database Systems</h3><p>Abraham Silberschatz</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="The Design of Everyday Things" data-author="Don Norman" data-category="Design">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10574063-L.jpg">
+    <h3>Everyday Design</h3><p>Don Norman</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Sapiens" data-author="Yuval Noah Harari" data-category="History">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/12523245-L.jpg">
+    <h3>Sapiens</h3><p>Yuval Noah Harari</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Python Crash Course" data-author="Eric Matthes" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10123567-L.jpg">
+    <h3>Python Crash Course</h3><p>Eric Matthes</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="SQL Performance Explained" data-author="Markus Winand" data-category="Database">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/11486714-L.jpg">
+    <h3>SQL Performance</h3><p>Markus Winand</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Don't Make Me Think" data-author="Steve Krug" data-category="Design">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10412587-L.jpg">
+    <h3>Don't Make Me Think</h3><p>Steve Krug</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="You Don't Know JS" data-author="Kyle Simpson" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/8343168-L.jpg">
+    <h3>You Don't Know JS</h3><p>Kyle Simpson</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="A Brief History of Time" data-author="Stephen Hawking" data-category="History">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/12833071-L.jpg">
+    <h3>History of Time</h3><p>Stephen Hawking</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="The Pragmatic Programmer" data-author="Andrew Hunt" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10363368-L.jpg">
+    <h3>Pragmatic Programmer</h3><p>Andrew Hunt</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Learning SQL" data-author="Alan Beaulieu" data-category="Database">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/11400244-L.jpg">
+    <h3>Learning SQL</h3><p>Alan Beaulieu</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Algorithms" data-author="Robert Sedgewick" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/8254427-L.jpg">
+    <h3>Algorithms</h3><p>Robert Sedgewick</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="1984" data-author="George Orwell" data-category="Fiction">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/12644265-L.jpg">
+    <h3>1984</h3><p>George Orwell</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="The Guns of August" data-author="Barbara Tuchman" data-category="History">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/12552222-L.jpg">
+    <h3>Guns of August</h3><p>Barbara Tuchman</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Structure and Interpretation" data-author="Harold Abelson" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10313524-L.jpg">
+    <h3>S.I.C.P.</h3><p>Harold Abelson</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Universal Principles of Design" data-author="William Lidwell" data-category="Design">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10531522-L.jpg">
+    <h3>Design Principles</h3><p>William Lidwell</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Database Design" data-author="Adrienne Watt" data-category="Database">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/11466826-L.jpg">
+    <h3>Database Design</h3><p>Adrienne Watt</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Java: A Beginner's Guide" data-author="Herbert Schildt" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10123456-L.jpg">
+    <h3>Java Guide</h3><p>Herbert Schildt</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Guns, Germs, and Steel" data-author="Jared Diamond" data-category="History">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10834351-L.jpg">
+    <h3>Guns, Germs, Steel</h3><p>Jared Diamond</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Effective Java" data-author="Joshua Bloch" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/11313522-L.jpg">
+    <h3>Effective Java</h3><p>Joshua Bloch</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Interaction Design" data-author="Jenny Preece" data-category="Design">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/8225229-L.jpg">
+    <h3>Interaction Design</h3><p>Jenny Preece</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Code Complete" data-author="Steve McConnell" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10431250-L.jpg">
+    <h3>Code Complete</h3><p>Steve McConnell</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="MySQL Explained" data-author="Andrew Comeau" data-category="Database">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/11186715-L.jpg">
+    <h3>MySQL Explained</h3><p>Andrew Comeau</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="The Great Gatsby" data-author="F. Scott Fitzgerald" data-category="Fiction">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/12833075-L.jpg">
+    <h3>Great Gatsby</h3><p>F. Scott Fitzgerald</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="The Rise and Fall" data-author="William L. Shirer" data-category="History">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/12523250-L.jpg">
+    <h3>Rise and Fall</h3><p>William Shirer</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Modern C++" data-author="Scott Meyers" data-category="Programming">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/8225235-L.jpg">
+    <h3>Modern C++</h3><p>Scott Meyers</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="Thinking with Type" data-author="Ellen Lupton" data-category="Design">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10574068-L.jpg">
+    <h3>Thinking with Type</h3><p>Ellen Lupton</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="PostgreSQL" data-author="Regina Obe" data-category="Database">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/10412590-L.jpg">
+    <h3>PostgreSQL</h3><p>Regina Obe</p><button>Borrow Book</button>
+  </div>
+
+  <div class="product-card" data-title="The Art of War" data-author="Sun Tzu" data-category="History">
+    <span class="badge available">Available</span>
+    <img src="https://covers.openlibrary.org/b/id/12552230-L.jpg">
+    <h3>The Art of War</h3><p>Sun Tzu</p><button>Borrow Book</button>
+  </div>
+</div>
+
+<footer class="main-footer">
+    <span class="footer-brand">📚 G7 Book Borrowing System</span>
+    <p>Empowering G7 students with world-class literature.</p>
+    <p>Contact: support@g7bbs.lib | Location: G7 Central Library</p>
+    
+    <div class="footer-bottom-text">
+        &copy; 2026 G7 BBS | All Rights Reserved | Built with VS Code
+    </div>
+</footer>
+
+<script src="JS/script.js"></script>
+
+<div id="bookModal" class="modal">
+  <div class="modal-content">
+    <span id="closeQuickView" class="close-modal">&times;</span>
+    <div class="modal-body">
+      <img id="modalImg" src="" alt="Book Cover">
+      <div class="modal-info">
+        <h2 id="modalTitle"></h2>
+        <p id="modalAuthor" style="font-weight: bold; color: #555; margin-bottom: 10px;"></p>
+        <p id="modalDesc">This is a premium library edition. Experience the full depth of this literature, now available for borrowing through the G7 BBS system.</p>
+        <div class="modal-meta" style="margin: 15px 0;">
+          <p><strong>Category:</strong> <span id="modalCat"></span></p>
+          <p><strong>Status:</strong> <span style="color: #2ed573; font-weight: bold;">Available</span></p>
+        </div>
+        <button id="modalBorrowBtn">Borrow Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
