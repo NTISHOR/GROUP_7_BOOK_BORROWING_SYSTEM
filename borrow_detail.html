@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Borrowing Details | G7 BBS</title>
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --text: #0f172a;
+      --gray: #64748b;
+      --light: #f8fafc;
+      --border: #e2e8f0;
+      --success: #10b981;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0 0 40px;
+    }
+
+    .top-nav-bar {
+      background: white;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      padding: 18px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .top-nav-bar h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .back-to-library {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+
+    .back-to-library:hover {
+      color: var(--primary-dark);
+    }
+
+    .checkout-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 0 20px;
+    }
+
+    @media (min-width: 992px) {
+      .checkout-container {
+        grid-template-columns: 1.7fr 1.3fr;
+      }
+    }
+
+    .step-box {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+
+    .step-header {
+      padding: 20px 28px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .step-number {
+      background: var(--primary);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      padding: 28px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .full-width {
+        grid-column: span 2;
+      }
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gray);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.12);
+    }
+
+    .option-card {
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-bottom: 12px;
+      background: white;
+    }
+
+    .option-card:hover {
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .option-card.active {
+      border-color: var(--primary);
+      background: rgba(30, 64, 175, 0.04);
+    }
+
+    .radio-dot {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #cbd5e1;
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
+      transition: border-color 0.2s;
+    }
+
+    .option-card.active .radio-dot {
+      border-color: var(--primary);
+    }
+
+    .option-card.active .radio-dot::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+    }
+
+    .option-card strong {
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .option-card p {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+
+    .order-summary {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--border);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .order-summary h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      font-size: 1.05rem;
+      color: var(--gray);
+    }
+
+    .summary-row span:last-child {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.4rem;
+      font-weight: 700;
+      padding-top: 20px;
+      margin-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-confirm {
+      background: var(--primary);
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 18px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 24px 0 16px;
+      transition: all 0.3s;
+      box-shadow: 0 6px 16px rgba(30, 64, 175, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .btn-confirm:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(30, 64, 175, 0.35);
+    }
+
+    .btn-confirm:disabled {
+      background: #cbd5e1;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-outline {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      transition: all 0.25s;
+    }
+
+    .btn-outline:hover {
+      background: rgba(30, 64, 175, 0.05);
+    }
+
+    .spinner {
+      width: 22px;
+      height: 22px;
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 991px) {
+      .order-summary {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav-bar">
+    <h1>📚 G7 BBS</h1>
+    <a href="cart.html" class="back-to-library">❮ Go back & continue borrowing</a>
+  </div>
+
+  <div class="checkout-container">
+    <div class="steps-column">
+
+      <div class="step-box">
+        <div class="step-header">
+          <span class="step-number">1</span>
+          Customer Information
+        </div>
+        <div class="step-content">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Full Name</label>
+              <input type="text" placeholder="e.g. Marvellous Chimdindu" id="custName" />
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="text" placeholder="+234 800 000 0000" id="custPhone" />
+            </div>
+            <div class="form-group">
+              <label>Student / Matric ID</label>
+              <input type="text" placeholder="#G7-2026-XXXX" id="custID" />
+            </div>
+            <div class="form-group full-width">
+              <label>Department / Faculty</label>
+              <input type="text" placeholder="e.g. Computer Science" id="custDept" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-box">
+        <div class="step-header">
+          <span class="step-number">2</span>
+          Delivery Method
+        </div>
+        <div class="step-content">
+          <div class="option-card active" data-fee="0" onclick="selectOption(this, 'delivery')">
+            <div class="radio-dot"></div>
+            <div>
+              <strong>Library Pickup Desk</strong>
+              <p>Available for collection in ~15 minutes (Free)</p>
+            </div>
+          </div>
+          <div class="option-card" data-fee="200" onclick="selectOption(this, 'delivery')">
+            <div class="radio-dot"></div>
+            <div>
+              <strong>Department / Faculty Delivery</strong>
+              <p>Delivered to your faculty office (+₦200 service fee)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-box">
+        <div class="step-header">
+          <span class="step-number">3</span>
+          Payment Method
+        </div>
+        <div class="step-content">
+          <div class="option-card active">
+            <div class="radio-dot"></div>
+            <div>
+              <strong>Pay on Pickup / Delivery</strong>
+              <p>Pay any applicable fees when you receive your book(s)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="summary-column">
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+
+        <div class="summary-row">
+          <span>Books borrowed</span>
+          <span id="bookCount">0</span>
+        </div>
+        <div class="summary-row">
+          <span>Library fee (₦100/book)</span>
+          <span id="libFeeDisplay">₦0</span>
+        </div>
+        <div class="summary-row">
+          <span>Delivery service</span>
+          <span id="serviceFee">₦0</span>
+        </div>
+        <div class="total-row">
+          <span>Total due</span>
+          <span id="totalDisplay">₦0.00</span>
+        </div>
+
+        <button class="btn-confirm" id="confirmBtn" onclick="processOrder()">
+          <span id="btnText">Confirm Borrowing</span>
+          <div id="loader" class="spinner" style="display:none;"></div>
+        </button>
+
+        <a href="/dashboard.html" class="btn-outline">Return to Library</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const borrowedBooks = JSON.parse(localStorage.getItem("borrowedBooks")) || [];
+    const LIB_FEE_PER_BOOK = 100;
+    let currentDeliveryFee = 0;
+
+    function updateCalculations() {
+      const count = borrowedBooks.length;
+      const totalLibFee = count * LIB_FEE_PER_BOOK;
+      const finalTotal = totalLibFee + currentDeliveryFee;
+
+      document.getElementById("bookCount").textContent = count;
+      document.getElementById("libFeeDisplay").textContent = "₦" + totalLibFee;
+      document.getElementById("serviceFee").textContent = "₦" + currentDeliveryFee;
+      document.getElementById("totalDisplay").textContent = "₦" + finalTotal.toFixed(2);
+
+      localStorage.setItem("lastTotalCharge", finalTotal);
+    }
+
+    function selectOption(element, type) {
+      const cards = element.parentElement.querySelectorAll(".option-card");
+      cards.forEach(card => card.classList.remove("active"));
+      element.classList.add("active");
+
+      if (type === "delivery") {
+        currentDeliveryFee = parseInt(element.dataset.fee || 0);
+        updateCalculations();
+      }
+    }
+
+    function processOrder() {
+      const name = document.getElementById("custName").value.trim();
+      const phone = document.getElementById("custPhone").value.trim();
+      const btn = document.getElementById("confirmBtn");
+      const loader = document.getElementById("loader");
+      const btnText = document.getElementById("btnText");
+
+      if (!name || !phone) {
+        alert("Please provide your Full Name and Phone Number.");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.classList.add("loading");
+      loader.style.display = "inline-block";
+      btnText.textContent = "Processing...";
+
+      setTimeout(() => {
+        btnText.textContent = "Order Confirmed!";
+        localStorage.removeItem("borrowedBooks");
+        localStorage.setItem("cartTotal", 0);
+        window.location.href = "success.html";
+      }, 2800); // shortened for better UX feel
+    }
+
+    updateCalculations();
+  </script>
+</body>
+</html>

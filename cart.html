@@ -1,155 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Cart | G7 BBS</title>
-    <style>
-      :root {
-        --primary-blue: #0056b3;
-        --bg-light: #f0f5ff;
-        --white: #ffffff;
-        --danger: #ff4757;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart | G7 BBS</title>
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-dark: #1e3a8a;
+      --text: #0f172a;
+      --gray: #64748b;
+      --light: #f8fafc;
+      --danger: #ef4444;
+      --success: #10b981;
+    }
 
-      body {
-        font-family: "Segoe UI", sans-serif;
-        background-color: var(--bg-light);
-        margin: 0;
-        padding: 20px;
-      }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    @media (min-width: 768px) {
       .container {
-        max-width: 1000px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: 2fr 1fr;
       }
+    }
 
-      /* Tablet/Desktop Layout */
-      @media (min-width: 768px) {
-        .container {
-          grid-template-columns: 2fr 1fr;
-        }
-      }
+    /* Cart Items Section */
+    .cart-items {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      border: 1px solid #f1f5f9;
+    }
 
-      .cart-items {
-        background: var(--white);
-        padding: 20px;
-        border-radius: 15px;
-        border: 1px solid #e1e8f0;
-      }
+    .cart-items h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
 
-      .cart-item {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 15px 0;
-        border-bottom: 1px solid #eee;
-      }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #e2e8f0;
+      transition: background 0.2s;
+    }
 
-      .cart-item img {
-        width: 60px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 5px;
-      }
+    .cart-item:last-child {
+      border-bottom: none;
+    }
 
-      .item-details {
-        flex-grow: 1;
-      }
-      .item-details h4 {
-        margin: 0;
-        font-size: 1rem;
-        color: var(--primary-blue);
-      }
-      .item-details p {
-        margin: 5px 0 0;
-        font-size: 0.8rem;
-        color: #666;
-      }
+    .cart-item:hover {
+      background: #f8fafc;
+    }
 
-      .remove-btn {
-        background: none;
-        border: 1px solid var(--danger);
-        color: var(--danger);
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 0.8rem;
-      }
-      .remove-btn:hover {
-        background: var(--danger);
-        color: white;
-      }
+    .cart-item img {
+      width: 80px;
+      height: 110px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #f1f5f9;
+      flex-shrink: 0;
+    }
 
-      /* Order Summary Sidebar */
-      .summary-card {
-        background: var(--white);
-        padding: 25px;
-        border-radius: 15px;
-        border: 1px solid #e1e8f0;
-        height: fit-content;
-        box-shadow: 0 4px 15px rgba(0, 86, 179, 0.05);
-      }
+    .item-details {
+      flex: 1;
+    }
 
-      .summary-card h3 {
-        margin-top: 0;
-        border-bottom: 2px solid var(--bg-light);
-        padding-bottom: 10px;
-      }
+    .item-details h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--primary);
+    }
 
-      .summary-row {
-        display: flex;
-        justify-content: space-between;
-        margin: 15px 0;
-        font-weight: 500;
-      }
+    .item-details p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
 
-      .checkout-btn {
-        background: var(--primary-blue);
-        color: white;
-        border: none;
-        padding: 15px;
-        width: 100%;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 1rem;
-      }
+    .remove-btn {
+      background: transparent;
+      border: 1.5px solid var(--danger);
+      color: var(--danger);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
 
-      .back-link {
-        display: block;
-        margin-top: 20px;
-        text-align: center;
-        color: var(--primary-blue);
-        text-decoration: none;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="cart-items" id="cartItemsContainer">
-        <h2>Borrowing List</h2>
-        <div id="itemList"></div>
-      </div>
+    .remove-btn:hover {
+      background: var(--danger);
+      color: white;
+      transform: translateY(-1px);
+    }
 
-      <div class="summary-card">
-        <h3>Summary</h3>
-        <div class="summary-row">
-          <span>Total Books:</span>
-          <span id="totalCount">0</span>
+    /* Summary Card */
+    .summary-card {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      border: 1px solid #f1f5f9;
+      height: fit-content;
+      position: sticky;
+      top: 40px;
+    }
+
+    .summary-card h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 16px 0;
+      font-size: 1.05rem;
+    }
+
+    .summary-row.total {
+      font-size: 1.25rem;
+      font-weight: 700;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 12px;
+    }
+
+    .due-date {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .checkout-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 16px;
+      width: 100%;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 24px 0 16px;
+      transition: all 0.3s;
+      box-shadow: 0 6px 16px rgba(30, 64, 175, 0.25);
+    }
+
+    .checkout-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(30, 64, 175, 0.35);
+    }
+
+    .checkout-btn a {
+      color: white;
+      text-decoration: none;
+      display: block;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      color: var(--primary);
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    /* Empty state */
+    .empty-cart {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--gray);
+    }
+
+    .empty-cart h3 {
+      font-size: 1.4rem;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="cart-items" id="cartItemsContainer">
+      <h2>Your Borrowing List</h2>
+      <div id="itemList">
+        <!-- Cart items will be populated by JavaScript -->
+        <!-- Example empty state fallback -->
+        <div class="empty-cart" id="emptyState" style="display: none;">
+          <h3>Your cart is empty</h3>
+          <p>Start borrowing some great books!</p>
         </div>
-        <div class="summary-row" style="color: #2ed573">
-          <span>Due Date:</span>
-          <span>14 Days</span>
-        </div>
-        <button class="checkout-btn">Confirm Borrowing</button>
-        <a href="/dashborad.html" class="back-link">← Continue Browsing</a>
       </div>
     </div>
 
-    <script src="/Js/cart.js"></script>
-  </body>
+    <div class="summary-card">
+      <h3>Summary</h3>
+      <div class="summary-row">
+        <span>Total Books</span>
+        <span id="totalCount">0</span>
+      </div>
+      <div class="summary-row">
+        <span>Borrow Period</span>
+        <span class="due-date">14 Days</span>
+      </div>
+      <div class="summary-row total">
+        <span>Status</span>
+        <span>Ready to Confirm</span>
+      </div>
+
+      <button class="checkout-btn">
+        <a href="/borrow_detail.html">Confirm Borrowing</a>
+      </button>
+
+      <a href="/dashboard.html" class="back-link">← Continue Browsing</a>
+    </div>
+  </div>
+
+  <script src="/Js/cart.js"></script>
+</body>
 </html>
