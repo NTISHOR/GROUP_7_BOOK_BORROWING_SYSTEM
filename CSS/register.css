@@ -54,6 +54,13 @@ nav a:hover {
 }
 
 /* Main Content */
+.login-image {
+  display: block;
+  margin: 0 auto 1px;
+  max-width: 60px;
+  border-radius: 50%;
+}
+
 .register-section {
   flex: 1;
   display: flex;

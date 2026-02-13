@@ -73,6 +73,13 @@ nav a:hover {
   border: 1px solid #f1f5f9;
 }
 
+.login-image {
+  display: block;
+  margin: 0 auto 1px;
+  max-width: 60px;
+  border-radius: 50%;
+}
+
 .login-form h2 {
   font-size: 32px;
   font-weight: 700;
