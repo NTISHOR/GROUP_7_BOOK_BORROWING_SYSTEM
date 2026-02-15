@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Borrowing Details | G7 BBS</title>
+    <link rel="stylesheet" href="/CSS/borrow_detail.css" />
+  </head>
+  <body>
+    <div class="top-nav-bar">
+      <h1>📚 G7 BBS</h1>
+      <a href="cart.html" class="back-to-library"
+        >❮ Go back & continue borrowing</a
+      >
+    </div>
+
+    <div class="checkout-container">
+      <div class="steps-column">
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-number">1</span>
+            Customer Information
+          </div>
+          <div class="step-content">
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label>Full Name</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Marvellous Chimdindu"
+                  id="custName"
+                />
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input
+                  type="text"
+                  placeholder="+234 800 000 0000"
+                  id="custPhone"
+                />
+              </div>
+              <div class="form-group">
+                <label>Student / Matric ID</label>
+                <input type="text" placeholder="#G7-2026-XXXX" id="custID" />
+              </div>
+              <div class="form-group full-width">
+                <label>Department / Faculty</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Computer Science"
+                  id="custDept"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-number">2</span>
+            Delivery Method
+          </div>
+          <div class="step-content">
+            <div
+              class="option-card active"
+              data-fee="0"
+              onclick="selectOption(this, 'delivery')"
+            >
+              <div class="radio-dot"></div>
+              <div>
+                <strong>Library Pickup Desk</strong>
+                <p>Available for collection in ~15 minutes (Free)</p>
+              </div>
+            </div>
+            <div
+              class="option-card"
+              data-fee="200"
+              onclick="selectOption(this, 'delivery')"
+            >
+              <div class="radio-dot"></div>
+              <div>
+                <strong>Department / Faculty Delivery</strong>
+                <p>Delivered to your faculty office (+₦200 service fee)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-number">3</span>
+            Payment Method
+          </div>
+          <div class="step-content">
+            <div class="option-card active">
+              <div class="radio-dot"></div>
+              <div>
+                <strong>Pay on Pickup / Delivery</strong>
+                <p>Pay any applicable fees when you receive your book(s)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-column">
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+
+          <div class="summary-row">
+            <span>Books borrowed</span>
+            <span id="bookCount">0</span>
+          </div>
+          <div class="summary-row">
+            <span>Library fee (₦100/book)</span>
+            <span id="libFeeDisplay">₦0</span>
+          </div>
+          <div class="summary-row">
+            <span>Delivery service</span>
+            <span id="serviceFee">₦0</span>
+          </div>
+          <div class="total-row">
+            <span>Total due</span>
+            <span id="totalDisplay">₦0.00</span>
+          </div>
+
+          <button class="btn-confirm" id="confirmBtn" onclick="processOrder()">
+            <span id="btnText">Confirm Borrowing</span>
+            <div id="loader" class="spinner" style="display: none"></div>
+          </button>
+
+          <a href="index.html" class="btn-outline">Return to Library</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="/JS/borrow_details.js"></script>
+  </body>
+</html>
