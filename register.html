@@ -1,32 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register |G7 BBS</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>G7 BBS Register</title>
     <link rel="stylesheet" href="CSS/register.css" />
-</head>
-<body>
+  </head>
+  <body>
+    <header>
+      <h1>BBS</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
 
-<div class="container">
-    <div class="logo">📚 G7 BBS</div>
-    <h1>Create Account</h1>
-    <p class="subtitle">Register to borrow books online</p>
+    <section class="register-section">
+      <div class="register-form">
+        <img
+          src="assets/images/IMG-20260209-WA0042.jpg"
+          alt="Logo"
+          class="login-image"
+        />
+        <h2>Create account</h2>
+        <p class="subtitle">Join the Book Borrowing System</p>
 
-    <form>
-        <input type="text" placeholder="Full Name" required>
-        <input type="email" placeholder="Email Address" required>
-        <input type="password" placeholder="Password" required>
-        <input type="password" placeholder="Confirm Password" required>
+        <form>
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="John Doe" required />
+          </div>
 
-        <button type="submit" class="register">Register</button>
-    </form>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@example.com" required />
+          </div>
 
-    <p class="footer">
-        Already have an account?
-        <a href="login.html">Login</a>
-    </p>
-</div>
+          <div class="form-group password-group">
+            <label>Password</label>
+            <input type="password" placeholder="••••••••" required />
+          </div>
 
-</body>
+          <div class="form-group password-group">
+            <label>Confirm Password</label>
+            <input type="password" placeholder="••••••••" required />
+          </div>
+
+          <button type="submit">Create Account</button>
+        </form>
+
+        <p class="sign-in">
+          Already have an account?
+          <a href="login.html">Sign in</a>
+        </p>
+      </div>
+    </section>
+
+    <footer>&copy; 2026 Book Borrowing System. All rights reserved.</footer>
+  </body>
 </html>

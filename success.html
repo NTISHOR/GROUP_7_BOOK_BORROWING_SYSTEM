@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Borrowing Confirmed | G7 BBS</title>
+    <link rel="stylesheet" href="/CSS/success.css">
+  </head>
+  <body>
+    <div class="success-card">
+      <div class="success-icon">🎉</div>
+      <h1>Borrowing Confirmed!</h1>
+      <p class="subtitle">
+        Your book request has been successfully processed.<br />
+        We're getting everything ready for you.
+      </p>
+
+      <div class="status-badge">Active Borrowing</div>
+
+      <div class="order-info">
+        <p>
+          <strong>Order ID:</strong>
+          <span class="value" id="orderId">G7-BBS-XXXX</span>
+        </p>
+        <p>
+          <strong>Total Due:</strong>
+          <span class="value" id="finalCharge">₦0.00</span>
+        </p>
+        <p>
+          <strong>Return By:</strong>
+          <span class="value" id="returnDate">Calculating...</span>
+        </p>
+      </div>
+
+      <p style="color: var(--gray); font-size: 0.95rem; margin-bottom: 32px">
+        A confirmation has been sent to the library desk.<br />
+        You'll receive your books soon!
+      </p>
+
+      <a href="/index.html" class="back-link">← Return to Library</a>
+    </div>
+
+    <script>
+      // Generate random-looking Order ID
+      const randomId = "G7-BBS-" + Math.floor(10000 + Math.random() * 90000);
+      document.getElementById("orderId").textContent = randomId;
+
+      // Retrieve final amount from previous page
+      const finalAmount = localStorage.getItem("lastTotalCharge") || "0.00";
+      document.getElementById("finalCharge").textContent =
+        "₦" + Number(finalAmount).toFixed(2);
+
+      // Calculate return date (14 days from today)
+      const today = new Date();
+      const returnDate = new Date();
+      returnDate.setDate(today.getDate() + 14);
+
+      const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      document.getElementById("returnDate").textContent =
+        returnDate.toLocaleDateString("en-US", options);
+
+      // Optional: Clear sensitive storage after display
+      // localStorage.removeItem('lastTotalCharge');
+    </script>
+  </body>
+</html>

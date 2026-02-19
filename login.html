@@ -3,32 +3,61 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>G7 BBS</title>
+    <title>G7 BBS Login</title>
     <link rel="stylesheet" href="CSS/login.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="logo">G7 BBS</div>
-      <h1>Welcome Back!</h1>
-      <p class="subtitle">Please Log in to your account.</p>
-      <form>
-        <input type="email" placeholder="Email Address" />
-        <input type="password" placeholder="Password" />
-        <div class="options">
-          <label><input type="checkbox" /> Remember Me</label>
-          <a href="#">Forgot Password?</a>
-        </div>
-        
-        <button id="login" class="button-container">Login</button>
-      <p class="footer">
-        Don't have an account?
-        <a href="register.html">Register</a>
-    </p>      
-      </form>
-      <p class="footer">
-        By signing up you agree to our terms and that you have read our data
-        policy
-      </p>
-    </div>
+    <header>
+      <h1>BBS</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="login-section">
+      <div class="login-form">
+        <img
+          src="assets/images/IMG-20260209-WA0042.jpg"
+          alt="Logo"
+          class="login-image"
+        />
+        <h2>Sign in</h2>
+        <p class="subtitle">Welcome back to Book Borrowing System</p>
+
+        <form>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+
+          <a href="#" class="forgot-password">Forgot password?</a>
+
+          <button type="submit">Sign in</button>
+        </form>
+
+        <p class="sign-up">
+          Don't have an account?
+          <a href="register.html">Create account</a>
+        </p>
+      </div>
+    </section>
+
+    <footer>&copy; 2026 Book Borrowing System. All rights reserved.</footer>
   </body>
 </html>
