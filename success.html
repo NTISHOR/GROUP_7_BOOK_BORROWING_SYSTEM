@@ -4,7 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Borrowing Confirmed | G7 BBS</title>
-    <link rel="stylesheet" href="/CSS/success.css">
+    <link rel="stylesheet" href="CSS/success.css">
+    <style>
+      /* Updated to Black, White, and Blue theme */
+      body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+      
+      .success-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); text-align: center; max-width: 500px; width: 90%; border-top: 8px solid #1e40af; }
+      
+      .success-icon { font-size: 64px; margin-bottom: 20px; color: #1e40af; }
+      
+      /* Changed from Orange to Blue */
+      .status-badge { background: #1e40af; color: white; padding: 8px 16px; border-radius: 20px; display: inline-block; font-weight: bold; margin: 20px 0; }
+      
+      .order-info { background: #f1f5f9; padding: 20px; border-radius: 12px; text-align: left; margin-bottom: 24px; border: 1px solid #e2e8f0; }
+      
+      .order-info p { display: flex; justify-content: space-between; margin: 8px 0; color: #0f172a; }
+      
+      .value { font-weight: bold; color: #1e40af; }
+
+      /* Black Button */
+      .back-link { display: inline-block; color: white; background: #0f172a; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
+      
+      .back-link:hover { background: #1e40af; }
+    </style>
   </head>
   <body>
     <div class="success-card">
@@ -18,54 +40,40 @@
       <div class="status-badge">Active Borrowing</div>
 
       <div class="order-info">
-        <p>
-          <strong>Order ID:</strong>
-          <span class="value" id="orderId">G7-BBS-XXXX</span>
-        </p>
-        <p>
-          <strong>Total Due:</strong>
-          <span class="value" id="finalCharge">₦0.00</span>
-        </p>
-        <p>
-          <strong>Return By:</strong>
-          <span class="value" id="returnDate">Calculating...</span>
-        </p>
+        <p><strong>Order ID:</strong> <span class="value" id="orderId">G7-BBS-XXXX</span></p>
+        <p><strong>Total Due:</strong> <span class="value" id="finalCharge">₦0.00</span></p>
+        <p><strong>Return By:</strong> <span class="value" id="returnDate">Calculating...</span></p>
       </div>
 
-      <p style="color: var(--gray); font-size: 0.95rem; margin-bottom: 32px">
+      <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 32px">
         A confirmation has been sent to the library desk.<br />
         You'll receive your books soon!
       </p>
 
-      <a href="/index.html" class="back-link">← Return to Library</a>
+      <a href="dashborad.html" class="back-link" onclick="clearCartData()">← Return to Library</a>
     </div>
 
     <script>
-      // Generate random-looking Order ID
+      // 1. Generate Order ID
       const randomId = "G7-BBS-" + Math.floor(10000 + Math.random() * 90000);
       document.getElementById("orderId").textContent = randomId;
 
-      // Retrieve final amount from previous page
+      // 2. Retrieve final amount from Local Storage
       const finalAmount = localStorage.getItem("lastTotalCharge") || "0.00";
-      document.getElementById("finalCharge").textContent =
-        "₦" + Number(finalAmount).toFixed(2);
+      document.getElementById("finalCharge").textContent = "₦" + finalAmount;
 
-      // Calculate return date (14 days from today)
+      // 3. Calculate return date (14 days from today)
       const today = new Date();
       const returnDate = new Date();
       returnDate.setDate(today.getDate() + 14);
 
-      const options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      };
-      document.getElementById("returnDate").textContent =
-        returnDate.toLocaleDateString("en-US", options);
+      const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+      document.getElementById("returnDate").textContent = returnDate.toLocaleDateString("en-US", options);
 
-      // Optional: Clear sensitive storage after display
-      // localStorage.removeItem('lastTotalCharge');
+      function clearCartData() {
+          localStorage.removeItem('temp_cart');
+          localStorage.removeItem('lastTotalCharge');
+      }
     </script>
   </body>
 </html>

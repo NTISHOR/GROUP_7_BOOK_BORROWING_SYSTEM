@@ -1,48 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart | G7 BBS</title>
-    <link rel="stylesheet" href="/CSS/cart.css" />
-  </head>
-  <body>
+    <style>
+        /* Matches your Dashboard theme */
+        :root {
+            --primary: #1e40af;
+            --text: #0f172a;
+            --gray: #64748b;
+            --light: #f8fafc;
+        }
+        body { font-family: sans-serif; background-color: #eef2ff; margin: 0; color: var(--text); }
+        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .container { display: flex; gap: 30px; padding: 40px 5%; align-items: flex-start; }
+        
+        .cart-section { background: white; padding: 30px; border-radius: 20px; flex: 2; min-height: 300px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .summary-section { background: white; padding: 30px; border-radius: 20px; flex: 1; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+
+        .cart-item { display: flex; align-items: center; gap: 20px; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .cart-item img { width: 60px; height: 80px; object-fit: contain; border-radius: 5px; }
+        .item-info { flex: 1; }
+        .remove-btn { color: #ef4444; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
+
+        .confirm-btn { background: var(--primary); color: white; border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        .empty-msg { text-align: center; color: var(--gray); margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="color: var(--primary);">📚 G7 BBS</h1>
+        <nav><a href="dashborad.html" style="text-decoration: none; color: var(--gray);">← Back to Library</a></nav>
+    </header>
+
     <div class="container">
-      <div class="cart-items" id="cartItemsContainer">
-        <h2>Your Borrowing List</h2>
-        <div id="itemList">
-          <!-- Cart items will be populated by JavaScript -->
-          <!-- Example empty state fallback -->
-          <div class="empty-cart" id="emptyState" style="display: none">
-            <h3>Your cart is empty</h3>
-            <p>Start borrowing some great books!</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="summary-card">
-        <h3>Summary</h3>
-        <div class="summary-row">
-          <span>Total Books</span>
-          <span id="totalCount">0</span>
-        </div>
-        <div class="summary-row">
-          <span>Borrow Period</span>
-          <span class="due-date">14 Days</span>
-        </div>
-        <div class="summary-row total">
-          <span>Status</span>
-          <span>Ready to Confirm</span>
+        <div class="cart-section">
+            <h2>Your Borrowing List</h2>
+            <div id="cartItemsContainer">
+                </div>
         </div>
 
-        <button class="checkout-btn">
-          <a href="/borrow_detail.html">Confirm Borrowing</a>
-        </button>
-
-        <a href="/index.html" class="back-link">← Continue Browsing</a>
-      </div>
+        <div class="summary-section">
+            <h3>Summary</h3>
+            <p>Total Books: <span id="totalBooks">0</span></p>
+            <p>Borrow Period: <span style="color: #10b981; font-weight: bold;">14 Days</span></p>
+            <hr>
+            <p><strong>Status:</strong> <span style="float: right;">Ready to Confirm</span></p>
+            <button class="confirm-btn" onclick="confirmBorrow()">Confirm Borrowing</button>
+        </div>
     </div>
 
-    <script src="/Js/cart.js"></script>
-  </body>
+    <script>
+        // 1. Load Data from Local Storage
+        let cart = JSON.parse(localStorage.getItem('temp_cart')) || [];
+        const container = document.getElementById('cartItemsContainer');
+
+        function displayCart() {
+            container.innerHTML = "";
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="empty-msg">Your list is empty. Go back and add some books!</p>';
+                document.getElementById('totalBooks').innerText = "0";
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.title}">
+                        <div class="item-info">
+                            <h4>${item.title}</h4>
+                            <p style="color: var(--gray); font-size: 0.9rem;">${item.author}</p>
+                        </div>
+                        <span class="remove-btn" onclick="removeItem(${index})">Remove</span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('totalBooks').innerText = cart.length;
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1); // Remove item from array
+            localStorage.setItem('temp_cart', JSON.stringify(cart)); // Update Storage
+            displayCart();
+        }
+
+       function confirmBorrow() {
+    if (cart.length === 0) {
+        alert("Your cart is empty! Please add books from the library first.");
+        return;
+    }
+
+    // 1. Optional: Save to a permanent history before clearing the temporary cart
+    let history = JSON.parse(localStorage.getItem('borrow_history')) || [];
+    const newEntry = {
+        date: new Date().toLocaleDateString(),
+        books: cart
+    };
+    history.push(newEntry);
+    localStorage.setItem('borrow_history', JSON.stringify(history));
+
+
+    window.location.href = "borrow_detail.html"; 
+}
+
+        // Initialize page
+        displayCart();
+    </script>
+</body>
 </html>
