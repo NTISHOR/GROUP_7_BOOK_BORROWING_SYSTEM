@@ -14,14 +14,16 @@
       .option-card { border: 1px solid #eee; padding: 15px; margin-top: 10px; cursor: pointer; border-radius: 8px; display: flex; gap: 15px; align-items: center; }
       .option-card.active { border: 2px solid #1e40af; background: #f0f7ff; }
       .summary-row, .total-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
-      .total-row { font-weight: bold; font-size: 1.2rem; border-top: 1px solid #eee; pt: 10px; }
+      .total-row { font-weight: bold; font-size: 1.2rem; border-top: 1px solid #eee; padding-top: 10px; }
       .btn-confirm { width: 100%; padding: 15px; background: #1e40af; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+      .top-nav-bar h1 { color: #1e40af; margin: 0; }
+      .back-to-library { text-decoration: none; color: #64748b; font-weight: bold; }
     </style>
   </head>
   <body>
-    <div class="top-nav-bar" style="padding: 20px; background: white; display: flex; justify-content: space-between; align-items: center;">
+    <div class="top-nav-bar" style="padding: 20px; background: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
       <h1>📚 G7 BBS</h1>
-      <a href="cart.html" class="back-to-library">❮ Go back to cart</a>
+      <a href="./cart.html" class="back-to-library">❮ Go back to cart</a>
     </div>
 
     <div class="checkout-container">
@@ -29,9 +31,9 @@
         <div class="step-box">
           <div class="step-header"><strong>1. Customer Information</strong></div>
           <div class="step-content">
-              <input type="text" placeholder="Full Name" id="custName" style="width:100%; padding:10px; margin:5px 0;">
-              <input type="text" placeholder="Phone Number" id="custPhone" style="width:100%; padding:10px; margin:5px 0;">
-              <input type="text" placeholder="Student ID (#G7-2026-XXXX)" id="custID" style="width:100%; padding:10px; margin:5px 0;">
+              <input type="text" placeholder="Full Name" id="custName" style="width:100%; padding:10px; margin:5px 0; border: 1px solid #ddd; border-radius: 5px;">
+              <input type="text" placeholder="Phone Number" id="custPhone" style="width:100%; padding:10px; margin:5px 0; border: 1px solid #ddd; border-radius: 5px;">
+              <input type="text" placeholder="Student ID (#G7-2026-XXXX)" id="custID" style="width:100%; padding:10px; margin:5px 0; border: 1px solid #ddd; border-radius: 5px;">
           </div>
         </div>
 
@@ -49,11 +51,12 @@
       </div>
 
       <div class="summary-column">
-        <div class="order-summary" style="background: white; padding: 20px; border-radius: 10px;">
+        <div class="order-summary" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
           <h3>Order Summary</h3>
           <div class="summary-row"><span>Books borrowed</span> <span id="bookCount">0</span></div>
           <div class="summary-row"><span>Library fee (₦100/bk)</span> <span id="libFeeDisplay">₦0</span></div>
           <div class="summary-row"><span>Delivery service</span> <span id="serviceFee">₦0</span></div>
+          <hr>
           <div class="total-row"><span>Total due</span> <span id="totalDisplay">₦0</span></div>
 
           <button class="btn-confirm" onclick="processOrder()">Confirm & Finish</button>
@@ -62,8 +65,8 @@
     </div>
 
     <script>
-      // 1. Load data from Local Storage
-      const cart = JSON.parse(localStorage.getItem('temp_cart')) || [];
+      // 1. FIXED: Changed 'temp_cart' to 'borrowedBooks' to match the Dashboard/Cart
+      const cart = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
       let deliveryFee = 0;
       const bookFeePerUnit = 100;
 
@@ -78,7 +81,6 @@
       }
 
       function updateFees(element, fee) {
-        // UI toggle
         document.querySelectorAll('.option-card').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
         
@@ -87,28 +89,30 @@
       }
 
       function processOrder() {
-    const name = document.getElementById('custName').value;
-    const id = document.getElementById('custID').value;
+        const name = document.getElementById('custName').value;
+        const id = document.getElementById('custID').value;
 
-    if (!name || !id) {
-        alert("Please fill in your Name and Student ID.");
-        return;
-    }
+        if (!name || !id) {
+            alert("Please fill in your Name and Student ID.");
+            return;
+        }
 
-    // Save the "Order" details so the success page can read them
-    const receipt = {
-        customerName: name,
-        studentID: id,
-        books: cart,
-        total: document.getElementById('totalDisplay').innerText,
-        date: new Date().toLocaleString()
-    };
-    
-    localStorage.setItem('last_receipt', JSON.stringify(receipt));
+        const receipt = {
+            customerName: name,
+            studentID: id,
+            books: cart,
+            total: document.getElementById('totalDisplay').innerText,
+            date: new Date().toLocaleString()
+        };
+        
+        localStorage.setItem('last_receipt', JSON.stringify(receipt));
+        
+        // 2. FIXED: Clears the correct key after the order is processed
+        localStorage.removeItem('borrowedBooks'); 
+        localStorage.removeItem('cartTotal');
 
-    // Redirect to the success page
-    window.location.href = "success.html"; 
-}
+        window.location.href = "success.html"; 
+      }
 
       window.onload = initSummary;
     </script>

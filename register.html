@@ -25,25 +25,25 @@
         <h2>Create account</h2>
         <p class="subtitle">Join the Book Borrowing System</p>
 
-        <form id="registerForm">
+        <form id="registerForm" action="register_process.php" method="POST">
           <div class="form-group">
             <label>Full Name</label>
-            <input type="text" id="fullName" placeholder="John Doe" required />
+            <input type="text" id="fullName" name="full_name" placeholder="John Doe" required />
           </div>
 
           <div class="form-group">
             <label>Email Address</label>
-            <input type="email" id="email" placeholder="you@example.com" required />
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
           </div>
 
           <div class="form-group password-group">
             <label>Password</label>
-            <input type="password" id="password" placeholder="••••••••" required />
+            <input type="password" id="password" name="password" placeholder="••••••••" required />
           </div>
 
           <div class="form-group password-group">
             <label>Confirm Password</label>
-            <input type="password" id="confirmPassword" placeholder="••••••••" required />
+            <input type="password" id="confirmPassword" name="confirm_password" placeholder="••••••••" required />
           </div>
 
           <button type="submit">Create Account</button>
@@ -58,41 +58,5 @@
 
     <footer>&copy; 2026 Book Borrowing System. All rights reserved.</footer>
 
-    <script>
-      /**
-       * Pure Front-End Registration Logic
-       * Saves user data to browser Local Storage for flash-drive portability.
-       */
-      document.getElementById('registerForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Stop page from reloading
-
-        const fullName = document.getElementById('fullName').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-
-        // 1. Basic validation
-        if (password !== confirmPassword) {
-          alert("Passwords do not match!");
-          return;
-        }
-
-        // 2. Create user object
-        const userData = {
-          fullName: fullName,
-          email: email,
-          password: password // In a real app, this would be encrypted
-        };
-
-        // 3. Save to Local Storage
-        // This acts as your database on the flash drive
-        localStorage.setItem('user_info', JSON.stringify(userData));
-
-        alert("Registration Successful! Please login.");
-        
-        // 4. Redirect to login page
-        window.location.href = "login.html";
-      });
-    </script>
   </body>
 </html>

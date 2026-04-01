@@ -17,8 +17,13 @@ function displayCart() {
   borrowedBooks.forEach((book, index) => {
     const itemDiv = document.createElement("div");
     itemDiv.className = "cart-item";
+    
+    // FIX: Point to your local folder. 
+    // We use book.image_name because that's what your SQL update saved.
+    const imagePath = `assets/images/${book.image_name}`;
+
     itemDiv.innerHTML = `
-            <img src="${book.image}" alt="Book Cover">
+            <img src="${imagePath}" alt="${book.title}" onerror="this.src='assets/images/php.png'">
             <div class="item-details">
                 <h4>${book.title}</h4>
                 <p>${book.author}</p>
@@ -33,14 +38,9 @@ function displayCart() {
 
 // 2. Remove Function
 window.removeItem = function (index) {
-  // Remove the specific book from the array
   borrowedBooks.splice(index, 1);
-
-  // Update LocalStorage
   localStorage.setItem("borrowedBooks", JSON.stringify(borrowedBooks));
   localStorage.setItem("cartTotal", borrowedBooks.length);
-
-  // Refresh the display
   displayCart();
 };
 

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart | G7 BBS</title>
     <style>
-        /* Matches your Dashboard theme */
         :root {
             --primary: #1e40af;
             --text: #0f172a;
@@ -31,14 +30,13 @@
 <body>
     <header>
         <h1 style="color: var(--primary);">📚 G7 BBS</h1>
-        <nav><a href="dashborad.html" style="text-decoration: none; color: var(--gray);">← Back to Library</a></nav>
+        <nav><a href="./dashboard.php" style="text-decoration: none; color: var(--gray); font-weight: bold;">← Back to Library</a></nav>
     </header>
 
     <div class="container">
         <div class="cart-section">
             <h2>Your Borrowing List</h2>
-            <div id="cartItemsContainer">
-                </div>
+            <div id="cartItemsContainer"></div>
         </div>
 
         <div class="summary-section">
@@ -52,8 +50,8 @@
     </div>
 
     <script>
-        // 1. Load Data from Local Storage
-        let cart = JSON.parse(localStorage.getItem('temp_cart')) || [];
+        // 1. FIXED: Changed 'temp_cart' to 'borrowedBooks' to match dashboard.php
+        let cart = JSON.parse(localStorage.getItem('borrowedBooks')) || [];
         const container = document.getElementById('cartItemsContainer');
 
         function displayCart() {
@@ -65,9 +63,12 @@
             }
 
             cart.forEach((item, index) => {
+                // 2. FIXED: Constructing the image path correctly
+                const imageSrc = "assets/images/" + item.image_name;
+                
                 container.innerHTML += `
                     <div class="cart-item">
-                        <img src="${item.image}" alt="${item.title}">
+                        <img src="${imageSrc}" alt="${item.title}">
                         <div class="item-info">
                             <h4>${item.title}</h4>
                             <p style="color: var(--gray); font-size: 0.9rem;">${item.author}</p>
@@ -81,31 +82,20 @@
         }
 
         function removeItem(index) {
-            cart.splice(index, 1); // Remove item from array
-            localStorage.setItem('temp_cart', JSON.stringify(cart)); // Update Storage
+            cart.splice(index, 1);
+            // 3. FIXED: Updating 'borrowedBooks'
+            localStorage.setItem('borrowedBooks', JSON.stringify(cart));
             displayCart();
         }
 
-       function confirmBorrow() {
-    if (cart.length === 0) {
-        alert("Your cart is empty! Please add books from the library first.");
-        return;
-    }
+        function confirmBorrow() {
+            if (cart.length === 0) {
+                alert("Your cart is empty! Please add books from the library first.");
+                return;
+            }
+            window.location.href = "borrow_detail.html"; 
+        }
 
-    // 1. Optional: Save to a permanent history before clearing the temporary cart
-    let history = JSON.parse(localStorage.getItem('borrow_history')) || [];
-    const newEntry = {
-        date: new Date().toLocaleDateString(),
-        books: cart
-    };
-    history.push(newEntry);
-    localStorage.setItem('borrow_history', JSON.stringify(history));
-
-
-    window.location.href = "borrow_detail.html"; 
-}
-
-        // Initialize page
         displayCart();
     </script>
 </body>

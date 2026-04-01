@@ -25,12 +25,13 @@
         <h2>Sign in</h2>
         <p class="subtitle">Welcome back to Book Borrowing System</p>
 
-        <form id="loginForm">
+        <form id="loginForm" action="login_action.php" method="POST">
           <div class="form-group">
             <label for="email">Email Address</label>
             <input
               type="email"
               id="email"
+              name="email"
               placeholder="you@example.com"
               required
             />
@@ -41,6 +42,7 @@
             <input
               type="password"
               id="password"
+              name="password"
               placeholder="••••••••"
               required
             />
@@ -60,31 +62,5 @@
 
     <footer>&copy; 2026 Book Borrowing System. All rights reserved.</footer>
 
-    <script>
-      /**
-       * Pure Front-End Login Logic
-       * Verifies credentials against Local Storage for flash-drive use.
-       */
-      document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent page reload
-
-        const emailInput = document.getElementById('email').value;
-        const passwordInput = document.getElementById('password').value;
-
-        // 1. Retrieve the 'user_info' we saved in register.html
-        const savedUser = JSON.parse(localStorage.getItem('user_info'));
-
-        // 2. Check if a user exists and if credentials match
-        if (savedUser && savedUser.email === emailInput && savedUser.password === passwordInput) {
-          alert("Login Successful! Welcome, " + savedUser.fullName);
-          
-          // 3. Redirect to your dashboard (matching your misspelled filename)
-          window.location.href = "dashborad.html";
-        } else {
-          // 4. Handle errors if no user is found or password is wrong
-          alert("Invalid email or password. Please try again or register.");
-        }
-      });
-    </script>
-  </body>
+    </body>
 </html>
