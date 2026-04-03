@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile | G7 BBS</title>
+  <link rel="stylesheet" href="/css/profile.css" />
+</head>
+<body>
+  <header>
+    <h1>📚 G7 BBS</h1>
+    <nav id="mainNav">
+      <a href="/login.html" id="loginLink">Login</a>
+      <a href="/register.html" id="registerLink">Register</a>
+      <a href="/dashboard.html">Books</a>
+      <a href="/profile.html">Profile</a>
+      <button id="logoutBtn" class="logout-btn" style="display: none">Logout</button>
+      <a href="/cart.html" class="cart-link">
+        🛒 <span id="cart-count">0</span>
+      </a>
+    </nav>
+  </header>
+
+<!-- <header>
+  <h1>📚 G7 BBS</h1>
+  <nav id="navbar"></nav>
+</header> -->
+
+<section class="profile-container">
+
+  <!-- USER INFO -->
+  <div class="card profile-card">
+    <h2>👤 My Profile</h2>
+    <div class="profile-info">
+      <p><strong>Name:</strong> <span id="name"></span></p>
+      <p><strong>Email:</strong> <span id="email"></span></p>
+      <p><strong>Matric No:</strong> <span id="matric"></span></p>
+      <p><strong>Phone:</strong> <span id="phone"></span></p>
+    </div>
+    <button class="btn secondary" onclick="openPasswordModal()">Change Password</button>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metrics">
+    <div class="metric-card">
+      <h3 id="totalBorrowed">0</h3>
+      <p>Total Borrowed</p>
+    </div>
+    <div class="metric-card">
+      <h3 id="activeBorrowed">0</h3>
+      <p>Active Borrows</p>
+    </div>
+    <div class="metric-card">
+      <h3 id="overdue">0</h3>
+      <p>Overdue</p>
+    </div>
+  </div>
+
+  <!-- ACTIVE BORROWS -->
+  <div class="card">
+    <h2>📖 Active Borrows</h2>
+    <div id="activeList" class="list"></div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="card">
+    <h2>📜 Borrow History</h2>
+    <div id="historyList" class="list"></div>
+  </div>
+
+</section>
+
+<!-- PASSWORD MODAL -->
+<div id="passwordModal" class="modal">
+  <div class="modal-content">
+    <h3>Change Password</h3>
+    <input type="password" id="oldPassword" placeholder="Old Password"/>
+    <input type="password" id="newPassword" placeholder="New Password"/>
+    <button onclick="changePassword()" class="btn">Update</button>
+    <button onclick="closePasswordModal()" class="btn secondary">Cancel</button>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="/js/profile.js"></script>
+</body>
+</html>

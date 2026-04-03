@@ -66,6 +66,21 @@
         color: var(--primary);
       }
 
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: var(--gray);
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0;
+}
+
+.logout-btn:hover {
+  color: var(--danger);
+}
+
       .cart-link {
         position: relative;
         font-weight: 600;
@@ -162,6 +177,15 @@
       .product-card:hover {
         transform: translateY(-12px);
         box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
+      }
+
+      .product-card img {
+        transition: 0.3s ease;
+        filter: blur(5px);
+      }
+
+      .product-card img.loaded {
+        filter: blur(0);
       }
 
       .badge {

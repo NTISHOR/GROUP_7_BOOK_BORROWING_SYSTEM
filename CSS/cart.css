@@ -78,6 +78,15 @@ body {
   flex-shrink: 0;
 }
 
+.cart-item img {
+  transition: 0.3s ease;
+  filter: blur(5px);
+}
+
+.cart-item img.loaded {
+  filter: blur(0);
+}
+
 .item-details {
   flex: 1;
 }
@@ -206,4 +215,45 @@ body {
   font-size: 1.4rem;
   color: var(--text);
   margin-bottom: 12px;
+}
+
+/* Toast Notification */
+
+#toast-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+}
+
+.toast {
+  background: #10b981;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: toastIn 0.3s forwards;
+}
+
+.toast.error {
+  background: #ef4444;
+}
+
+@keyframes toastIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 }

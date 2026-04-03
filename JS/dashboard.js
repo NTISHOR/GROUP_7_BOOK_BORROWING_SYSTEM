@@ -1,9 +1,15 @@
 const API_BASE_URL = "http://localhost:3000";
+const IMAGE_BASE_URL = `${API_BASE_URL}/uploads`;
 
 const productGrid = document.getElementById("productGrid");
 const searchInput = document.getElementById("search");
 const categorySelect = document.getElementById("category");
 const cartCountEl = document.getElementById("cart-count");
+const loginLink = document.getElementById("loginLink");
+const registerLink = document.getElementById("registerLink");
+const profileLink = document.getElementById("profileLink");
+const cartLink = document.getElementById("cartLink");
+const logoutBtn = document.getElementById("logoutBtn");
 
 let nextCursor = null;
 let loading = false;
@@ -12,6 +18,75 @@ function getToken() {
   return localStorage.getItem("bbs_access_token");
 }
 
+// ===== REFRESH TOKEN =====
+async function refreshAccessToken() {
+  const refreshToken = localStorage.getItem("bbs_refresh_token");
+  if (!refreshToken) {
+    window.location.replace('login.html');
+    throw new Error("No refresh token");
+  }
+
+  const res = await fetch(`http://localhost:3000/auth/refresh`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ refreshToken }),
+  });
+
+  const json = await res.json();
+  if (!res.ok) throw new Error(json?.message || "Refresh failed");
+
+  const data = json.data ?? json;
+
+  localStorage.setItem("bbs_access_token", data.accessToken);
+  localStorage.setItem("bbs_refresh_token", data.refreshToken); // rotated
+  localStorage.setItem("bbs_expires_in", String(data.expiresIn));
+
+  return data.accessToken;
+}
+/* ---------------- Navbar ---------------- */
+
+function isLoggedIn() {
+  return !!localStorage.getItem("bbs_access_token");
+}
+
+function updateNavAuthState() {
+  const loggedIn = isLoggedIn();
+
+  if (loginLink) {
+    loginLink.style.display = loggedIn ? "none" : "inline-block";
+  }
+
+  if (registerLink) {
+    registerLink.style.display = loggedIn ? "none" : "inline-block";
+  }
+
+  if (profileLink) {
+    profileLink.style.display = loggedIn ? "inline-block" : "none";
+  }
+  
+  if (cartLink) {
+    cartLink.style.display = loggedIn ? "inline-block" : "none";
+  }
+
+  if (logoutBtn) {
+    logoutBtn.style.display = loggedIn ? "inline-block" : "none";
+  }
+}
+
+function logoutUser() {
+  localStorage.removeItem("bbs_access_token");
+  localStorage.removeItem("bbs_refresh_token");
+  localStorage.removeItem("bbs_expires_in");
+
+  showToast("Logged out successfully");
+  updateNavAuthState();
+
+  setTimeout(() => {
+    window.location.href = "/login.html";
+  }, 700);
+}
+
+if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);
 /* ---------------- Toast ---------------- */
 
 function showToast(message, type="success") {
@@ -123,6 +198,7 @@ function renderBooks(books){
   books.forEach(book=>{
 
     const available = book.availableCopies > 0;
+    const imageUrl = book.coverImageUrl ? `${IMAGE_BASE_URL}/${book.coverImageUrl}` : '/assets/images/IMG-20260209-WA0042.jpg';
 
     const card = document.createElement("div");
     card.className="product-card";
@@ -132,7 +208,7 @@ function renderBooks(books){
         ${available?"Available":"Borrowed"}
       </span>
 
-      <img src="${book.coverImageUrl||""}">
+      <img src="${imageUrl}" alt="${book.title}" loading="lazy">
 
       <div class="product-info">
         <h3>${book.title}</h3>
@@ -145,6 +221,12 @@ function renderBooks(books){
         </button>
       </div>
     `;
+
+    const img = card.querySelector("img");
+    img.onload = () => img.classList.add("loaded");
+    img.onerror = () => {
+      img.src = "/assets/images/IMG-20260209-WA0042.jpg";
+    };
 
     const btn = card.querySelector("button");
 
@@ -163,7 +245,10 @@ async function addToCart(bookId,btn){
   const token = getToken();
 
   if(!token){
-    window.location.href="login.html";
+    showToast("Failed to add to cart...please login first", "error");
+    setTimeout(() => {
+      window.location.href="login.html";
+    }, 300);
     return;
   }
 
@@ -179,6 +264,29 @@ async function addToCart(bookId,btn){
     });
 
     if(!res.ok) throw new Error("Failed");
+
+    // If token expired → refresh it
+    if (res.status === 401) {
+      const refreshed = await refreshAccessToken();
+
+      if (refreshed) {
+        token = getToken();
+
+        const res = await fetch(`${API_BASE_URL}/cart/items`,{
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${token}`
+          },
+          body:JSON.stringify({bookId})
+        });
+
+        // options.headers.Authorization = `Bearer ${token}`;
+        // response = await fetch(url, options);
+      } else {
+        logoutUser();
+      }
+    }
 
     showToast("Book added to cart");
 
@@ -216,6 +324,27 @@ async function loadCartCount(){
       headers:{Authorization:`Bearer ${token}`}
     });
 
+    // If token expired → refresh it
+    if (res.status === 401) {
+      const refreshed = await refreshAccessToken();
+
+      if (refreshed) {
+        token = getToken();
+
+        const res = await fetch(`${API_BASE_URL}/cart/count`,{
+          method:"POST",
+          headers:{
+            Authorization:`Bearer ${token}`
+          },
+        });
+
+        // options.headers.Authorization = `Bearer ${token}`;
+        // response = await fetch(url, options);
+      } else {
+        logoutUser();
+      }
+    }
+
     const json = await res.json();
 
     const count = json.data.count;
@@ -247,7 +376,7 @@ window.addEventListener("scroll",()=>{
 /* ---------------- Init ---------------- */
 
 async function init(){
-
+  updateNavAuthState()
   await loadCategories();
   await loadBooks(true);
   await loadCartCount();
