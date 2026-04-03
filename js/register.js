@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "https://book-borrowing-system.onrender.com";
 
 const form = document.getElementById("registerForm");
 const fullNameEl = document.getElementById("fullName");

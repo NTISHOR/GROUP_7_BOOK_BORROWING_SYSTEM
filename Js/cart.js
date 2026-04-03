@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "https://book-borrowing-system.onrender.com";
 const IMAGE_BASE_URL = `${API_BASE_URL}/uploads`;
 
 const itemList = document.getElementById("itemList");

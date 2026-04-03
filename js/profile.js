@@ -1,5 +1,5 @@
-const API = "http://localhost:3000/users";
-const API_BASE_URL = "http://localhost:3000";
+const API = "https://book-borrowing-system.onrender.com/users";
+const API_BASE_URL = "https://book-borrowing-system.onrender.com";
 const cartCountEl = document.getElementById("cart-count");
 
 function getToken() {
@@ -82,7 +82,7 @@ async function refreshAccessToken() {
     throw new Error("No refresh token");
   }
 
-  const res = await fetch(`http://localhost:3000/auth/refresh`, {
+  const res = await fetch(`${API_BASE_URL}/auth/refresh`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ refreshToken }),
