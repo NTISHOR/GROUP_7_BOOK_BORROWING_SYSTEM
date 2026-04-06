@@ -1,4 +1,5 @@
-const API_BASE_URL = "https://book-borrowing-system.onrender.com";
+// const API_BASE_URL = "https://book-borrowing-system.onrender.com";
+const API_BASE_URL = "http://localhost:3000";
 
 const LIB_FEE_PER_BOOK = 100;
 let currentDeliveryFee = 0;
@@ -191,6 +192,8 @@ async function processOrder() {
     if (!res.ok) throw new Error(json.message);
 
     showToast("Borrowing successful 🎉");
+    console.log('Success data: ', json);
+    sessionStorage.setItem('borrow_success', JSON.stringify(json));
 
     btnText.textContent = "Success!";
 

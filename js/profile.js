@@ -1,5 +1,7 @@
-const API = "https://book-borrowing-system.onrender.com/users";
-const API_BASE_URL = "https://book-borrowing-system.onrender.com";
+// const API = "https://book-borrowing-system.onrender.com/users";
+// const API_BASE_URL = "https://book-borrowing-system.onrender.com";
+const API = "http://localhost:3000/users";
+const API_BASE_URL = "http://localhost:3000";
 const cartCountEl = document.getElementById("cart-count");
 
 function getToken() {
@@ -212,11 +214,11 @@ async function loadHistory() {
 
 // ===== PASSWORD =====
 function openPasswordModal() {
-  document.getElementById("passwordModal").style.display = "block";
+  document.getElementById("passwordModal").classList.add("show");
 }
 
 function closePasswordModal() {
-  document.getElementById("passwordModal").style.display = "none";
+  document.getElementById("passwordModal").classList.remove("show");
 }
 
 async function changePassword() {
@@ -228,8 +230,11 @@ async function changePassword() {
     body: JSON.stringify({ oldPassword, newPassword }),
   });
 
-  if (res.statusCode !== 200) showToast("Failed to update password", "error");
-  showToast("Password updated");
+  if (res.statusCode !== 200) {
+    showToast("Failed to update password", "error");
+  } else {
+    showToast("Password updated");
+  }
   closePasswordModal();
 }
 

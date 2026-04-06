@@ -40,32 +40,6 @@
       <a href="/dashboard.html" class="back-link">← Return to Library</a>
     </div>
 
-    <script>
-      // Generate random-looking Order ID
-      const randomId = "G7-BBS-" + Math.floor(10000 + Math.random() * 90000);
-      document.getElementById("orderId").textContent = randomId;
-
-      // Retrieve final amount from previous page
-      const finalAmount = localStorage.getItem("lastTotalCharge") || "0.00";
-      document.getElementById("finalCharge").textContent =
-        "₦" + Number(finalAmount).toFixed(2);
-
-      // Calculate return date (14 days from today)
-      const today = new Date();
-      const returnDate = new Date();
-      returnDate.setDate(today.getDate() + 14);
-
-      const options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      };
-      document.getElementById("returnDate").textContent =
-        returnDate.toLocaleDateString("en-US", options);
-
-      // Optional: Clear sensitive storage after display
-      // localStorage.removeItem('lastTotalCharge');
-    </script>
+    <script src='/js/success.js'></script>
   </body>
 </html>
