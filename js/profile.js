@@ -1,7 +1,7 @@
 // const API = "https://book-borrowing-system.onrender.com/users";
-// const API_BASE_URL = "https://book-borrowing-system.onrender.com";
-const API = "http://localhost:3000/users";
-const API_BASE_URL = "http://localhost:3000";
+const API_BASE_URL = "https://book-borrowing-system.onrender.com";
+const API = "http://book-borrowing-system.onrender.com/users";
+// const API_BASE_URL = "http://localhost:3000";
 const cartCountEl = document.getElementById("cart-count");
 
 function getToken() {
